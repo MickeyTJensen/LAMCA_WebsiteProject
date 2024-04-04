@@ -1,0 +1,151 @@
+  #calendar {
+    width: 1500px; /* eller annan önskad maxbredd */
+    height: 1500px;
+    margin-left: 30px;
+    margin-top: 65px;
+    background-color: rgb(254, 254, 254);
+    border-radius: 5px;
+    display: flex;
+  }
+
+  html, body {
+    height: 100%;
+    margin: 0;
+    overflow: hidden; /* Detta förhindrar scrollning på hela sidan */
+  }
+  .calendar-container {
+    max-height: calc(100vh - 100px - 105px);
+    overflow-y: auto; /* Aktiverar scrollning inom denna container */
+  } 
+
+  .event-info {
+    width: 90%; /* Använd procent för att göra bredden relativ till förälderelementet */
+    max-width: 80%; /* Ange en maxbredd för att begränsa storleken på större skärmar */
+    margin: 0 auto; /* Centrera innehållet horisontellt */
+  }
+  
+
+  .modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    justify-content: center;
+    align-items: center;
+  }
+
+  #modal-content {
+    background-color: #383838;
+    margin: 15% auto;
+    padding: 20px;
+    border: 2px solid #222222;
+    width: 30%;
+    border-radius: 5px;
+    box-shadow: 0px 4px 8px rgba(5, 5, 5, 0.8); 
+    margin-left: 20%;
+  }
+
+  .close {
+    color: #faf9f9;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
+
+  .close:hover,
+  .close:focus {
+    color: #222222;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  #modal-content h2{
+    font-size: 48px;
+    color: #fbfafa;
+  }
+
+  #modal-content p{
+    font-size:24px;
+    color: #faf9f9;
+  }
+
+  #modal-content #bookBtn,
+  #modal-content #cancelBtn {
+    font-size: 24px; 
+    padding: 10px 20px; 
+    background-color: #454444; 
+    color: #f09401; 
+    border: none; 
+    border-radius: 5px; 
+    cursor: pointer; 
+    margin-left: 20%;
+  }
+
+  #modal-content #bookBtn:hover{
+    opacity: 0.8; 
+    background-color:#014d14;
+  }
+
+  #modal-content #cancelBtn:hover {
+    opacity: 0.8; 
+    background-color: rgb(134, 0, 0)
+  }
+
+  /* Anpassning för mindre skärmar */
+  @media (max-width: 768px) {
+    .modal {
+      width: 90%; /* Bredd på modalen för mindre skärmar */
+      padding: 10px; /* Mindre padding */
+      margin: 30%;
+    }
+
+    #modal-content #bookBtn,
+    #modal-content #cancelBtn {
+      width: 70%;
+      padding: 8px 16px;
+      font-size: 10px; /* Mindre textstorlek för knapparna */
+    }
+    #modal-content #close{
+      font-size: 10px;
+    }
+  }
+
+  /* Ytterligare anpassning för ännu mindre skärmar */
+  @media (max-width: 480px) {
+    .modal {
+      width: 95%; /* Bredd på modalen för ännu mindre skärmar */
+      padding: 5px; /* Ännu mindre padding */
+    }
+  }
+
+
+  .full {
+    background-color: #930101 !important; /* Röd */
+  }
+  
+  .available {
+    background-color: #019401 !important; /* Grön */
+  }
+  
+  .fc-event-title {
+    font-size: 14px; /* Justera storleken */
+    text-align: center; /* Centrerar texten */
+    width: 100%; /* Säkerställer att titeln kan centreras i hela bredden */
+  }
+  
+  .fc-event-custom {
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Centrerar innehållet vertikalt */
+    height: 100%; /* Använd full höjd för att möjliggöra vertikal centrering */
+  }
+  
+  /* Justera storleken på andra element */
+  .fc-event-instructor, .fc-event-booked, .fc-event-time, .fc-event-id {
+    font-size: 12px; /* Exempel på mindre textstorlek */
+  }
+  

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login & Signup</title>
+    <link href='https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;600&display=swap' rel='stylesheet'>
+    <link rel="stylesheet" href="css/Login.css">
+    <style>
+        body {
+            font-family: 'Nunito', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background: linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.9)), url('/frontend/images/bgd_logo_signup.jpg');
+            background-size: cover;
+            background-position: center;
+        }
+
+        input, button {
+            margin: 10px 0;
+            padding: 10px;
+        }
+
+        #signupForm, #loginForm {
+            text-align: center;
+        }
+
+        input[type=email], input[type=password], input[type=text] {
+            color: black;
+        }
+
+        h2 {
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+
+        <a href="#" class="logo"> <span>LAMCA</span>GYM </a>
+
+        <!-- <div id="menu-btn" class="fas fa-bars"></div> Lägg till hamburgar meny for telefon skala -->
+
+        <nav class="navbar">
+            <a href="index.html">Home</a>
+            <a href="who-are-we.html">Who are we</a>
+            <a href="ourgym.html">Our Gym</a>
+            <a href="membership.html">Membership</a>
+            <a href="trainer.html">Trainers</a>
+            <a href="login.html">Register Now / Log In</a>
+        </nav>
+    </header>
+
+    <div class="form-wrapper">
+        <!-- Signup Form -->
+        <form id="signupForm">
+            <div id="signupTitle">
+                <h2>Register</h2>
+            </div>
+            <input type="text" id="signupFullName" placeholder="Name" style="color: black;">
+            <input type="email" id="signupEmail" placeholder="Email" style="color: black;">
+            <input type="text" id="signupPhoneNumber" placeholder="PhoneNumber" style="color: black;">
+            <input type="password" id="signupPassword" placeholder="Password" style="color: black;">
+            <div><button type="submit">Register</button></div>
+            <p>Already a member? <span id="toggleToLogin" style="color: #f09401; cursor: pointer;">Log in</span></p>
+        </form>
+    
+        <!-- Login Form -->
+        <form action ="login" method="POST" id="loginForm" style="display:none;">
+            <div id="loginTitle">
+                <h2>Log In</h2>
+            </div>
+            <input type="text" id="loginEmail" name="email" placeholder="Email" style="color: black;">
+            <input type="password" id="loginPassword" name="password" placeholder="Password" style="color: black;">
+            <div><button type="submit">Log In</button></div>
+            <p th:text="${message}"></p>
+            <p>Not a member? <span id="toggleToSignup" style="color: #f09401; cursor: pointer;">create account</span></p>
+        </form>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+        // Hämta sökvägsdelen av den nuvarande sidans URL
+        const currentPath = window.location.pathname;
+
+        // Hämta alla navigationslänkar
+        const navLinks = document.querySelectorAll('.navbar a');
+
+        // Iterera över alla länkar
+        navLinks.forEach(link => {
+            // Ta bort 'active-link' från alla länkar
+            link.classList.remove('active-link');
+
+            // Hämta länktexten
+            const linkText = link.textContent.trim();
+
+            // Exkludera "Logout"-länken baserat på länktexten
+            if (linkText === 'Logga ut') {
+                return;
+            }
+
+            // Skapa en ny URL baserat på länkens href-attribut för att hantera relativa och absoluta URL:er korrekt
+            const linkPath = new URL(link.href, window.location.origin).pathname;
+
+            // Jämför länkens sökväg med den nuvarande sidans sökväg
+            // och markera länken som aktiv om de matchar
+            if (linkPath === currentPath) {
+                link.classList.add('active-link');
+            }
+        });
+    </script>
+    <script src="script/Login.js" defer></script>
+</body>
+</html>

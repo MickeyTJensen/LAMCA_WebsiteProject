@@ -1,0 +1,95 @@
+main {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+
+
+/* Rundade hörn och padding för info-boxen, samt centrerad profilbild */
+.info-box {
+  width: 25%;
+  background-color: rgb(56, 55, 55);
+  border-radius: 10px; /* Lägger till rundade hörn */
+  padding: 10px; /* Lägger till padding */
+  box-sizing: border-box; /* Säkerställer att padding inte utökar boxens storlek */
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Centrerar innehållet horisontellt */
+  margin-top: 65px;
+  height: 1500px;
+  max-height: calc(100vh - 100px - 105px);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Specifika stilar för profilbilden */
+.profile-picture img {
+  max-width: 100%;
+  height: 300px;
+  border-radius: 50%; /* Behåller den rundade formen */
+  display: block; /* Gör att margin auto fungerar för centrerande */
+  margin-top: 10px; /* Lägger till utrymme ovanför bilden */
+  margin-bottom: 20px; /* Lägger till utrymme nedanför bilden */
+}
+
+
+.profile-picture {
+  display: flex;
+  justify-content: center; /* Centrera bilden horisontellt */
+  margin-bottom: 20px; /* Lägg till mellanrum nedanför bilden */
+}
+
+.profile-info h2{
+  font-size: 36px;
+  margin-bottom: 10px;
+}
+
+/* Centrera h2-rubriken */
+.profile-info h2, .profile-info form {
+  text-align: center;
+}
+
+/* Styling för formelement så att de placeras under varandra */
+.profile-info form {
+  display: flex;
+  flex-direction: column;
+  width: 100%; /* Se till att formuläret använder hela bredden för att undvika sidlayout */
+}
+
+.profile-info label, .profile-info input, .profile-info button {
+  width: 100%; /* Full bredd för att säkerställa vertikal stapling */
+  margin-bottom: 10px; /* Mellanrum mellan elementen */
+  font-size: 24px;
+}
+
+.profile-info input{
+  border: 1px solid #1c1c1b;
+  border-radius: 8px;
+}
+
+/* Justera bredden på knappen för att matcha layouten */
+.profile-info button {
+  padding: 12px 28px;
+  font-size: 15px;
+  border-radius: 8px;
+  font-weight: 600;
+  margin-top: 30px;
+  box-sizing: border-box;
+  text-transform: uppercase;
+  border: 1px solid #f09401;
+  background: transparent;
+  color: #fff;
+  width: 100%;
+}
+
+.profile-info button:hover {
+  background-color: #f09401;
+  color:#000;
+  cursor: pointer;
+}
+
+.active-link {
+  color: #f09401; /* Exempel: Gör den aktiva fliken orange */
+  background-color: #f09401;
+}

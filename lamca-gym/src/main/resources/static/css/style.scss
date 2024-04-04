@@ -1,0 +1,141 @@
+// Importerar typsnittet Nunito från Google Fonts
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;600&display=swap');
+
+// Globala stilar som tillämpas på hela dokumentet
+*{
+  font-family: 'Nunito', sans-serif; // Sätter Nunito som typsnitt för hela sidan
+  margin:0; padding:0; // Tar bort standardmarginaler och utfyllnad
+  box-sizing: border-box; // Ändrar box-sizing till border-box för enklare layoutberäkningar
+  text-decoration: none; // Tar bort textdekorationer (som understrykningar på länkar)
+  outline: none; border:none; // Tar bort kontur och border från element (som inputfält och knappar)
+  text-transform: capitalize; // Kapitaliserar första bokstaven i varje ord
+  transition: all .2s linear; // Lägger till en övergångseffekt för alla ändringar
+}
+
+// Definierar färgvariabler och en mixin för grid-layout
+$red:#f00;
+$black : #000;
+$white : #fff;
+$light-white:#aaa;
+$light-bg:#111;
+
+@mixin grid($val) {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax($val, 1fr));
+  gap:1.5rem;
+}
+
+// Stilar specifikt för <html>-elementet
+html{
+  font-size: 62.5%; // Sätter basfontstorleken till 10px (62.5% av standard 16px) för enklare em-beräkning
+  scroll-behavior: smooth; // Aktiverar mjuk scrollning för länkar som pekar inom samma dokument
+  scroll-padding-top: 5rem; // Lägger till utfyllnad överst vid scrollning till ett element
+  overflow-x: hidden; // Gömmer horisontell scrollning
+
+  &::-webkit-scrollbar{ // Stilar för scrollbaren i webkit-baserade webbläsare
+    width: 1rem;
+  }
+
+  &::-webkit-scrollbar-track{
+    background: $black;
+  }
+
+  &::-webkit-scrollbar-thumb{
+    background: $red;
+  }
+}
+
+// Stilar för <body>-elementet
+body{
+  background: $black; // Sätter bakgrundsfärgen till svart
+}
+
+// Stilar för <section>-element
+section{
+  padding:5rem 9%; // Lägger till utfyllnad runt sektioner
+}
+
+// Stilar för rubrikerna
+.heading{
+  text-align: center; // Centrerar texten
+  margin-bottom: 3rem; // Lägger till marginal under rubriken
+  position: relative; // Används för positionering av dekorativa element
+
+  &::before{ // Lägger till en dekorativ linje under rubriken
+    content: '';
+    position: absolute;
+    top:50%; left:0;
+    transform: translateY(-50%);
+    height: .1rem;
+    width: 100%;
+    background: $light-white;
+    z-index: -1;
+  }
+
+  span{ // Stilar för span inuti .heading, används för att framhäva delar av rubriken
+    font-size: 3rem;
+    color:$red;
+    background: $black;
+    padding:.5rem 1.5rem;
+    border:.1rem solid $light-white;
+    border-radius: .5rem;
+  }
+}
+
+// Stilar för knappar
+.btn{
+  margin-top: 1rem; // Lägger till marginal ovanför knappen
+  display: inline-block; // Gör så att elementet beter sig som en inline-block
+  padding:1rem 2.8rem; // Lägger till utfyllnad runt texten inuti knappen
+  padding-right: 3rem; // Extra utfyllnad på höger sida
+  background:linear-gradient(130deg, $red 93%, transparent 90%); // Gradient bakgrund för knappen
+  color:$white; // Textfärg
+  cursor: pointer; // Ändrar muspekaren till en pekare
+  font-size: 1.7rem; // Textstorlek
+
+  &:hover{ // Hover-effekt för knappen
+    transform:scale(1.1); // Förstorar knappen vid mouseover
+  }
+}
+
+// Stilar för header
+.header{
+  position: fixed; // Fixerar headern överst på sidan
+  top:0; left:0; right:0;
+  display: flex; // Använder flexbox för layout
+  align-items: center; // Centrerar element vertikalt
+  justify-content: space-between; // Distribuerar utrymme mellan och runt innehåll
+  padding:0 9%; // Lägger till utfyllnad på sidorna
+  z-index: 10000; // Säkerställer att headern ligger över andra element
+  background: $black; // Bakgrundsfärg
+
+  .logo{ // Stilar för logotypen
+    font-weight: bolder;
+    color:$white;
+    font-size: 3rem;
+
+    span{ // Stilar för span inuti .logo, ofta för att framhäva en del av logotypen
+      color:$red;
+    }
+  }
+
+  .navbar a{ // Stilar för navigeringslänkar
+    display: inline-block;
+    padding:1.5rem 2rem;
+    font-size: 1.7rem;
+    color:$white;
+
+    &:hover{ // Hover-effekt för länkar
+      background: $red; // Ändrar bakgrundsfärg vid mouseover
+    }
+  }
+}
+
+// Stilar för menyknappen (används för mobilmenyer)
+#menu-btn{
+  font-size: 3rem;
+  color:$white;
+  cursor: pointer;
+  display: none; // Döljs som standard, visas bara i mobilvy via media queries (inte inkluderat här)
+}
+

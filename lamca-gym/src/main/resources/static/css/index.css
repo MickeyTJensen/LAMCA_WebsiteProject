@@ -1,0 +1,314 @@
+#welcome .content-flex{
+  display: flex;
+  justify-content: center; /* Logotypen kommer att vara till höger */
+  height: 80vh; /* Alternativt, justera höjden enligt behov */
+  padding-top: 100px; /* Justera enligt behov för att inte döljas av headern */
+  padding-bottom: 50px;
+  margin-left: 50px;
+  color: white;
+  align-items: center; /* Centrerar barnen vertikalt */
+  color: #fdfcfc;
+}
+
+.active-link {
+  color: #f09401; /* Exempel: Gör den aktiva fliken orange */
+  background-color: #f09401;
+}
+
+#welcome .logo-img, #welcome .text-content {
+  position: absolute; /* Tar elementen ur det normala flödet och positionerar dem över varandra */
+  top: 50%; /* Centrerar vertikalt */
+  left: 50%; /* Centrerar horisontellt */
+  transform: translate(-50%, -50%); /* Justerar för den exakta mitten */
+  width: max-content; /* Detta ser till att bredden är så stor som innehållet kräver */
+}
+
+/* Specifik stil för logotypen om den behöver ytterligare anpassning */
+#welcome .logo-img {
+  transition: opacity 2s ease-out; /* Justerar tiden till 2 sekunder */
+  z-index: 1; /* Sätter logotypen över texten */
+}
+
+/* Specifik stil för texten om den behöver ytterligare anpassning */
+#welcome .text-content {
+  z-index: 2; /* Sätter texten över logotypen */
+  color: rgba(255, 255, 255, 0.8); /* Gör texten något genomskinlig */
+  transition: opacity 2s ease-in-out; /* Definierar en övergångseffekt */
+  opacity: 0; /* Startar med texten osynlig */
+}
+
+
+.text-content h2{
+  padding-bottom: 20px;
+  text-align: center;
+  font-size: 48px;
+}
+
+.text-content p{
+  padding-bottom: 20px;
+  text-align: center;
+  margin-left: 20%;
+  margin-right: 20%;
+  font-size: 24px;
+}
+
+/* Generella stilar för alla sektioner */
+.section .content-flex {
+  display: flex;
+  justify-content: center; /* Centrerar barnen horisontellt */
+  align-items: center; /* Centrerar barnen vertikalt */
+  height: 70vh; /* Justera denna höjd efter behov */
+  padding-top: 100px;
+  padding-bottom: 100px;
+  color: #fdfcfc;
+  font-size: large; /* xx-large kan vara för stort beroende på din design */
+}
+
+.video-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 80%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999; /* Placera videon över allt annat innehåll */
+  margin-top: 5%;
+  max-width: 2500px;
+  margin-left: 30px;
+}
+
+#background-video {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+.video.muted:after {
+  opacity: 1; /* Visa overlay när videon är dempad */
+}
+.section {
+  background-color: transparent;
+  border-radius: 15px;
+  margin: 150px auto; /* Centrerat med automatisk margin */
+  padding: 50px;
+  width: 80%; /* eller någon specifik bredd */
+  background-image: radial-gradient(circle, #201f1f, transparent);
+}
+
+
+.section img {
+  display: flex;
+  justify-content: center; /* Centrerar bilderna horisontellt */
+  align-items: center; /* Centrerar bilderna vertikalt */
+  width: 100%; /* Anpassa detta enligt behov */
+  max-width: 50%; /* Anpassa detta för att kontrollera bildens maxbredd */
+  border-radius: 5%;
+}
+
+.lamca {
+  color: orange;
+  font-family: "Oswald", sans-serif;
+}
+
+.gym {
+  color: white;
+  font-family: "Oswald", sans-serif;
+}
+
+
+/* Basstil för dina animerade element */
+.animate-from-left {
+  opacity: 0;
+  transform: translateX(-100px);
+  transition: opacity 0.5s, transform 0.5s;
+}
+
+/* När elementet är i viewport och ska animeras */
+.animate-from-left.in-view {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Fördröjning */
+.animate-delay-1 {
+  transition-delay: 0.2s; /* Anpassa tiden efter behov */
+}
+
+
+
+.glitch {
+  color: rgb(232, 128, 1);
+  position: relative;
+  font-size: 9vw;
+  animation: glitch 5s 2s infinite;
+  text-align: center;
+  font-family: "Oswald", sans-serif;
+}
+
+@keyframes glitch {
+  1%{
+    transform: rotateX(10deg) skewX(90deg);
+  }
+  2%{
+    transform: rotateX(0deg) skewX(0deg);
+  }
+}
+
+@keyframes noise-1 {
+  0% { clip-path: inset(10% 0 20% 0); }
+  10% { clip-path: inset(40% 0 30% 0); }
+  20% { clip-path: inset(20% 0 15% 0); }
+  /* Fortsätt med fler procentenheter och justera värdena manuellt */
+  100% { clip-path: inset(50% 0 25% 0); }
+}
+
+@keyframes noise-2 {
+  0% { clip-path: inset(5% 0 25% 0); }
+  10% { clip-path: inset(30% 0 35% 0); }
+  20% { clip-path: inset(25% 0 10% 0); }
+  /* Fortsätt med fler procentenheter och justera värdena manuellt */
+  100% { clip-path: inset(45% 0 20% 0); }
+}
+
+.scanlines {
+  overflow: hidden;
+  mix-blend-mode: difference;
+}
+
+.scanlines::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(255, 255, 255, 0.05) .5%,
+    transparent 1%
+  );
+
+  animation: fudge 7s ease-in-out alternate infinite;
+}
+
+
+@keyframes fudge {
+  from {
+    transform: translate(0px, 0px);
+  }
+  to {
+    transform: translate(0px, 2%);
+  }
+}
+
+.glow {
+  @extend .glitch;
+  text-shadow: 0 0 1000px rgb(223, 191, 191);
+  color: transparent;
+  position: absolute;
+  top: 0;
+}
+
+
+.subtitle {
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: 100;
+  font-size: .8vw;
+  color: rgba(165, 141, 141, .4);
+  text-transform: uppercase;
+  letter-spacing: 1em;
+  text-align: center;
+  position: absolute;
+  left: 17%;
+  animation: glitch-2 5s 5.02s infinite;
+}
+
+@keyframes glitch-2 {
+  1%{
+    transform: rotateX(10deg) skewX(70deg);
+  }
+  2%{
+    transform: rotateX(0deg) skewX(0deg);
+  }
+}
+
+.scroll {
+	width: 60px;
+	height: 60px;
+	border: 2px solid #848383;
+	border-radius: 50%;
+	position: relative;
+	animation: down 1.5s infinite;
+	-webkit-animation: down 1.5s infinite;
+  margin: 200px auto;
+	&::before {
+		content: '';
+		position: absolute;
+		top: 15px;
+		left: 18px;
+		width: 18px;
+		height: 18px;
+		border-left: 2px solid #848383;
+  	border-bottom: 2px solid #848383;
+		transform: rotate(-45deg);
+	}
+}
+
+@keyframes down {
+	0% {
+		transform: translate(0);
+	}
+	20% {
+		transform: translateY(15px);
+	}
+	40% {
+		transform: translate(0);
+	}
+}
+
+@-webkit-keyframes down {
+	0% {
+		transform: translate(0);
+	}
+	20% {
+		transform: translateY(15px);
+	}
+	40% {
+		transform: translate(0);
+	}
+}
+
+@keyframes scroll {
+	0% {
+		height: 40px;
+	}
+	30% {
+		height: 70px;
+	}
+	60% {
+		height: 40px;
+	}
+}
+
+@-webkit-keyframes scroll {
+	0% {
+		height: 40px;
+	}
+	30% {
+		height: 70px;
+	}
+	60% {
+		height: 40px;
+	}
+}
+
+@media (max-width: 1920px) {
+  .container {
+    transform: scale(0.75);
+    transform-origin: top left;
+  }
+}
