@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://thymeleaf.org" lang="en">
 
 <head>
     <meta charset="UTF-8">
@@ -7,48 +7,50 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LAMCA GYM</title>
 
-    <!-- font awesome cdn link  -->
+    <!-- Font Awesome CDN link -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
+    <!-- Swiper CSS file link -->
     <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css" />
 
-    <!-- custom css file link  -->
+    <!-- Custom css file link  -->
+    <link rel="stylesheet" href="css/template.css">
+
     <link rel="stylesheet" href="css/trainer.css">
     
 </head>
 
 <body>
 
-    <!-- header section starts  -->
-
+    <!-- Header section starts  -->
     <header class="header">
 
+        <!-- Logo with brand name -->
         <a href="#" class="logo"> <span>LAMCA</span>GYM </a>
 
-        <!-- <div id="menu-btn" class="fas fa-bars"></div>  Lägg till hamburgar meny for telefon skala -->
-
+        <!-- Navigation menu -->
         <nav class="navbar">
             <a href="index.html">Home</a>
-            <a href="about.html">Who are we</a>
+            <a href="who-are-we.html">Who are we</a>
             <a href="ourgym.html">Our Gym</a>
             <a href="membership.html">Membership</a>
             <a href="trainer.html">Trainers</a>
-            <a href="login.html">Register Now / Log In</a>
+            <a href="personalpage.html" id="personalPageLink" style="display: none;">Personal Page</a>
+            <a href="#" id="logoutLink" style="display: none;">Logga ut</a>
+            <a href="login.html" id="loginLink">Register Now / Log In</a>
         </nav>
         
     
 
     </header>
-
-    <!-- header section ends     -->
+    <!-- Header section ends -->
     
-
-    
+    <!-- Trainer section starts here -->
     <div class="container Trainers">
         <h2><em>Trainers</em></h2>
              <div class="row">
                 <div class="column img">
-                    <img src="images/Arta1.jpg" height="340" width="455">
+                    <img src="images/Arta1.jpg" height="370" width="770">
                 </div>
                 <div class="column txt">
                     <h4>"Certified Yoga and Pilates Wellness Coach" </h4>
@@ -58,7 +60,7 @@
             </div>
             <div class="row">
                 <div class="column img">
-                    <img src="images/Mickey.jpg" height="340" width="455">
+                    <img src="images/Mickey.jpg" height="370" width="770">
                 </div>
                 <div class="column txt">
                     <h4>"Certified Strength and Conditioning Specialist"</h4>
@@ -68,7 +70,7 @@
             </div>
             <div class="row">
                 <div class="column img">
-                    <img src="images/Lars.jpg" height="340" width="455">
+                    <img src="images/Lars.jpg" height="370" width="770">
                 </div>
                 <div class="column txt">
                     <h4>"Certified General Fitness Instructor"</h4>
@@ -78,7 +80,7 @@
             </div>
             <div class="row">
                 <div class="column img">
-                    <img src="images/Anders.jpg" height="340" width="455">
+                    <img src="images/Anders.jpg" height="370" width="770">
                 </div>
                 <div class="column txt">
                     <h4>"Certified Rehabilitation Fitness Trainer"</h4>
@@ -88,7 +90,7 @@
             </div>
             <div class="row">
                 <div class="column img">
-                    <img src="images/Girl.jpg" height="340" width="455">
+                    <img src="images/Girl.jpg" height="370" width="770">
                 </div>
                 <div class="column txt">
                     <h4>"Certified Holistic Fitness Trainer"</h4>
@@ -96,14 +98,11 @@
                     
                 </div>
             </div>
-
     </div>
+    <!-- Trainers section ends here -->
 
-        
-
-
-    
-    <footer class="footer">
+    <!-- Footer starts here -->
+    <footer class="footer menu">
         <div class="hours-grid">
             <h2>Opening hours</h2>
             <p class="monday">Monday: 07:00 - 23:00</p>
@@ -125,15 +124,14 @@
     
         <div>
             <h2>LAMCA GYM</h2>
-            <p>About</p>
-            <p>Contact</p>
-            <p>Follow us!</p>
-            <p>Become a Partner</p>
+            <p><a href="who-are-we.html">Who Are We</a></p>
+            <p><a href="who-are-we.html#contactForm">Contact</a></p>
+            <p><a href="https://www.instagram.com/artarch4/" target="_blank">Follow us</a></p>
+            <p><a href="who-are-we.html">Become a partner</a></p>
         </div>
     </footer>
+    <!-- Footer ends here -->
     
-
-    <script src="script/Userlogin.js" defer></script>
 </body>
 
 </html>

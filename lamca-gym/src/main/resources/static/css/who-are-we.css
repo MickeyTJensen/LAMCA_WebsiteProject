@@ -13,11 +13,6 @@
   transition: all .2s linear;
 }
 
-.active-link {
-  color: #f09401; /* Exempel: Gör den aktiva fliken orange */
-  background-color: #f09401;
-}
-
 html {
   font-size: 62.5%;
   scroll-behavior: smooth;
@@ -34,7 +29,7 @@ html::-webkit-scrollbar-track {
 }
 
 html::-webkit-scrollbar-thumb {
-  background: #9CD02F;
+  background: #f09401;
 }
 
 body {
@@ -129,7 +124,7 @@ section {
   background: #f09401;
 }
 
-.ourGym {
+.whoAreWe {
   justify-content: center;
   align-items: center;
   /*height: 100vh; /* Använder hela vyhöjden för att centrera innehållet vertikalt (ändrat vh för att ha mer margin-bottom)*/
@@ -137,83 +132,47 @@ section {
   color: white; /* Vit textfärg */
   text-align: center;
   font-size: xx-large;
-  flex-wrap: wrap;
 }
 
-.ourGym p {
+.whoAreWe p {
   font-size: 16px; 
   margin: 30px 0 30px 0;
 }
 
-.ourGym img { 
-  object-fit: cover;
-  max-width: 100%;
-}
-
-.ourGym .boxes {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  flex-wrap: wrap;
-}
-
-.ourGym .box h4{
-  font-size: 26px; 
-  text-align: left;
-  text-transform: capitalize;
-  padding-top: 10px;
-}
-
-.ourGym .box p{
-  font-size: 15px; 
-  text-align: left;
-  margin-top: 4px!important;
-  color: #b1b2b3;
-}
-
-.ourGym .box {
+.whoAreWe .moto {
+  font-size: 35px;
   background: #1e1e1e;
-  padding: 20px;
-  border-radius: 20px;
-  box-sizing: border-box;
-  width: calc(33.33% - 20px);
-  margin: 10px;
-  float: left;
+  padding: 80px;
+  border-radius: 15px;
 }
 
-.ourGym .box .primaryButton {
-  background-color: #f09401;
-  padding: 12px 28px;
-  margin-top: 160px;
-  font-size: 15px;
-  border-radius: 8px;
-  font-weight: 600;
-  box-sizing: border-box;
+.whoAreWe .moto span {
+ color:#f09401;
 }
 
-.ourGym .box  .primaryButton:hover {
-  background-color: #fff;
-  color:#f09401;
-  cursor: pointer;
+.whoAreWe img { 
+  object-fit: cover;
+  width: 100%;
 }
-
 
 .row {
   display: flex;
+  flex: 1;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: space-between!important;
+  column-gap: 25px;
 }
+
 .row img {
   object-fit: cover;
   border-radius: 15px;
+  width: 50%;
+  height: 270px;
 }
+
 img {
   border-radius: 15px;
-}
-.ourGym video {
-  width: 97%;
-  max-width: 100%;
-  border-radius: 25px!important;
+   width: 100%;
 }
 
 .footer {
@@ -246,10 +205,10 @@ img {
 }
 
 .footer .navbar a {
-  display: inline-block;
+  display: inline-block!important;
   padding: 1.5rem 2rem;
   font-size: 1.7rem;
-  color: #fff;
+  color: #fff!important;
 }
 
 .footer .navbar a:hover {
@@ -257,7 +216,7 @@ img {
 }
 
 .footer p{
-  color: #fff;
+  color: #fff!important;
   margin-top: 5px;
 }
 
@@ -296,3 +255,124 @@ h2 {
   text-align: center;
   display: grid;
 }
+
+.footer a {
+  color: #fff!important;
+  padding-top: 20px!important;
+}
+
+footer a:hover {
+  color: #f09401!important;
+}
+
+.contact-form {
+  padding: 40px 40px;
+  justify-content: center;
+  align-items: center;
+  background:#1e1e1e;
+  margin: 0 100px 100px 100px;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.contact-form h2 {
+  color: #fff;
+  text-align: center;
+  font-size: xx-large;
+}
+
+.contact-form p {
+  color: #ccc;
+  font-size: 16px;
+  margin-top: 10px;
+}
+
+form {
+  margin-top: 20px;
+}
+
+label {
+  display: block;
+  margin-bottom: 10px;
+  color: #999;
+  text-align: left!important;
+  font-size: 14px;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+textarea {
+  width: 100%!important;
+  height: 48px;
+  background-color: #2e2e2e;
+  border: 1px solid #444444;
+  color: #fff;
+  padding: 10px;
+  margin-bottom: 10px;
+  box-sizing: border-box;
+  border-radius:5px;
+}
+
+textarea {
+  width: 100%;
+  height: 200px;
+  resize: none;
+}
+
+input[type="submit"] {
+  height: 48px;
+  padding: 10px 30px;
+  background-color: #f09401;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  border-radius: 5px;
+}
+
+input[type="submit"]:hover {
+  background-color: #fff;
+  color: #f09401;
+}
+
+input:active, textarea:active {
+  background: #3d3d3d;
+}
+
+input:focus, textarea:focus {
+  border: 1px solid #f0f1f2;
+}
+
+/* Responsive Styles */
+@media only screen and (max-width: 768px) {
+  input[type="text"],
+  input[type="email"],
+  input[type="tel"],
+  select {
+    width: 100%;
+  }
+}
+
+/* Responsive */
+@media only screen and (min-width: 768px) and (max-width: 1024px) {
+  .whoAreWe {
+    padding: 120px 40px;
+  }
+
+  .whoAreWe .moto {
+    font-size: 30px;
+    background: #1e1e1e;
+    padding: 60px 40px;
+    border-radius: 15px;
+  }
+
+  .row {
+   column-gap: 30px!important;
+  }
+
+  .contact-form {
+    margin: 100px 40px;
+  }
+}
+

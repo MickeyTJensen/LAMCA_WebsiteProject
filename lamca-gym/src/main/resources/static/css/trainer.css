@@ -1,5 +1,7 @@
+/* Importing Google Fonts Nunito with specified weights for better rendering */
 @import url("https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;600&display=swap");
 
+/* Global reset */
 * {
   font-family: 'Nunito', sans-serif;
   margin: 0;
@@ -13,6 +15,7 @@
   transition: all .2s linear;
 }
 
+/* Setting base font size to 62.5% for easier rem calculations and enabling smooth scrolling */
 html {
   font-size: 62.5%;
   scroll-behavior: smooth;
@@ -20,6 +23,7 @@ html {
   overflow-x: hidden;
 }
 
+/* Styling scrollbar */
 html::-webkit-scrollbar {
   width: 1rem;
 }
@@ -29,17 +33,20 @@ html::-webkit-scrollbar-track {
 }
 
 html::-webkit-scrollbar-thumb {
-  background: #9CD02F;
+  background: #f09401;
 }
 
+/* Styling body */
 body {
   background: #000;
 }
 
+/* Styling sections */
 section {
   padding: 5rem 9%;
 }
 
+/* Styling headings */
 .heading {
   text-align: center;
   margin-bottom: 3rem;
@@ -68,6 +75,7 @@ section {
   border-radius: .5rem;
 }
 
+/* Styling buttons */
 .btn {
   margin-top: 1rem;
   display: inline-block;
@@ -84,6 +92,7 @@ section {
   transform: scale(1.1);
 }
 
+/* Header starts here */
 .header {
   position: fixed;
   top: 0;
@@ -123,32 +132,29 @@ section {
 .header .navbar a:hover {
   background: #f09401;
 }
-
+/* Header ends here */
+ 
+/* Trainers section stars here */
 .Trainers {
   justify-content: center;
   align-items: center;
-  /*height: 100vh; /* Använder hela vyhöjden för att centrera innehållet vertikalt (ändrat vh för att ha mer margin-bottom)*/
-  padding: 100px 100px; /* Lägg till toppmarginal om headern döljer innehållet */
-  color: white; /* Vit textfärg */
+  padding: 100px 100px; 
+  color: white; 
   text-align: center!important;
   font-size: xx-large;
   flex-wrap: wrap;
 }
-
-.Trainers p {
-  font-size: 16px; 
-  color: #b1b2b3;
+.Trainers h4 {
+  text-align: left!important;
+  font-size: 26px;
 }
 
 .Trainers .info {
-  font-size: 16px; 
+  font-size: 18px;
+  line-height: 26px;
   margin-top: 10px;
   text-align: left;
-}
-
-.Trainers h4 {
-  text-align: left;
-  font-size: 26px;
+  color: #b1b2b3;
 }
 
 .Trainers .row {
@@ -167,12 +173,16 @@ section {
   align-content: center!important;
 }
 
-.Trainers img {
+.Trainers .column img {
   max-width: 100%;
   object-fit: cover;
   border-radius: 7px;
+  max-height: 570px;
+  vertical-align: middle;
 }
+/* Trainers section ends here */
 
+/* Footer starts here */
 .footer {
   bottom: 0;
   left: 0;
@@ -226,30 +236,63 @@ section {
 
 .hours-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr); /* Delar upp i två kolumner */
-  grid-template-rows: auto; /* Rader baserat på innehållets storlek */
-  grid-gap: 5px; /* Utrymme mellan grid-element */
-  text-align: left; /* Centrerar texten */
+  grid-template-columns: repeat(2, 1fr); 
+  grid-template-rows: auto; 
+  grid-gap: 5px; 
+  text-align: left; 
 }
 
 h2 {
-  grid-column: 1 / -1; /* Sträcker sig över båda kolumnerna */
+  grid-column: 1 / -1; 
 }
 
 .monday, .tuesday, .wednesday {
-  justify-self: start; /* Justerar dessa dagar till vänster */
+  justify-self: start; 
 }
 
 .thursday, .friday, .saturday {
-  justify-self: left; /* Justerar dessa dagar till höger */
+  justify-self: left; 
 }
 
 .sunday {
-  grid-column: 1 / -1; /* Centrerar söndagen under båda kolumnerna */
-  justify-self: center; /* Centrerar texten */
+  grid-column: 1 / -1; 
+  justify-self: center; 
 }
 
+/* Grid for location */
 .location-grid{
   text-align: center;
   display: grid;
+}
+
+
+/* Responsive */
+@media only screen and (min-width: 768px) and (max-width: 1024px) {
+  .Trainers {
+    padding: 120px 40px; 
+  }
+
+  .Trainers .row {
+    flex-direction: column;
+  }
+  
+  .Trainers .column {
+   flex-direction: row!important;
+  }
+
+  .Trainers h4 {
+   margin-top: -30px;
+  }
+  
+  .Trainers .info {
+    font-size: 18px;
+    line-height: 26px;
+    margin-top: 10px;
+    text-align: left;
+    color: #b1b2b3;
+  }
+  
+  .Trainers .column img {
+    width: 100%!important;
+  }
 }

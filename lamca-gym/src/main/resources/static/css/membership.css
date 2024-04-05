@@ -29,7 +29,7 @@ html::-webkit-scrollbar-track {
 }
 
 html::-webkit-scrollbar-thumb {
-  background: #9CD02F;
+  background: #f09401;
 }
 
 body {
@@ -124,7 +124,6 @@ section {
   background: #f09401;
 }
 
-
 .Membership {
   justify-content: center;
   align-items: center;
@@ -194,7 +193,6 @@ section {
   text-transform: uppercase;
 }
 
-
 .Membership .box  .primaryButton:hover {
   background-color: #fff;
   color:#f09401;
@@ -214,7 +212,6 @@ section {
   color: #fff;
   width: 100%;
 }
-
 
 .Membership .box  .secondaryButton:hover {
   background-color: #f09401;
@@ -236,8 +233,6 @@ section {
 .Membership .box li::marker {
   color: #f09401;
 }
-
-
 
 .row {
   display: flex;
@@ -299,9 +294,9 @@ img {
 }
 
 .footer .navbar a {
-  display: inline-block;
   padding: 1.5rem 2rem;
   font-size: 1.7rem;
+  display: block!important;
   color: #fff;
 }
 
@@ -312,6 +307,7 @@ img {
 .footer p{
   color: #fff;
   margin-top: 5px;
+  display: block!important;
 }
 
 .footer h2{
@@ -348,4 +344,18 @@ h2 {
 .location-grid{
   text-align: center;
   display: grid;
+}
+
+/* Responsive */
+@media only screen and (min-width: 768px) and (max-width: 1024px) {
+  .Membership {
+    padding: 120px 40px;
+  }
+
+  .Membership .boxes {
+   max-width: 100%!important;
+  }
+  .Membership .box {
+    width: 90%!important;
+  }  
 }

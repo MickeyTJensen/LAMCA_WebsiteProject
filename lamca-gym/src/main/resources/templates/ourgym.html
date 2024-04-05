@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://thymeleaf.org" lang="en">
 
 <head>
     <meta charset="UTF-8">
@@ -7,88 +7,88 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LAMCA GYM</title>
 
-    <!-- font awesome cdn link  -->
+    <!-- Font awesome CDN link  -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
-    <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css" />
+    <!-- Custom CSS file link  -->
+ <link rel="stylesheet" href="css/template.css">
 
-    <!-- custom css file link  -->
     <link rel="stylesheet" href="css/ourgym.css">
 
 </head>
 
 <body>
 
-    <!-- header section starts      -->
-
+    <!-- Header section starts -->
     <header class="header">
 
+         <!-- Logo with brand name -->
         <a href="#" class="logo"> <span>LAMCA</span>GYM </a>
 
-        <!-- <div id="menu-btn" class="fas fa-bars"></div>  Lägg till hamburgar meny for telefon skala -->
-
+         <!-- Navigation menu -->
         <nav class="navbar">
             <a href="index.html">Home</a>
             <a href="who-are-we.html">Who are we</a>
             <a href="ourgym.html">Our Gym</a>
             <a href="membership.html">Membership</a>
             <a href="trainer.html">Trainers</a>
-            <a href="login.html">Register Now / Log In</a>
+            <a href="personalpage.html" id="personalPageLink" style="display: none;">Personal Page</a>
+            <a href="#" id="logoutLink" style="display: none;">Logga ut</a>
+            <a href="login.html" id="loginLink">Register Now / Log In</a>
         </nav>
         
-    
-
     </header>
+    <!-- Header section ends -->
 
-    <!-- header section ends     -->
-    <!-- HEJ1234    -->
-    <!-- HEJ1234    -->
-    <!-- HEJ1234    -->
-    <!-- HEJ1234    -->
-    <!-- HEJ1234    -->
-    
-
+    <!-- Our gym section starts here -->
     <div class="container ourGym">
+        <!-- Title -->
         <h2><em>Our Gym</em></h2>
+        <!-- Introduction -->
             <p>
                 Welcome to LAMCA Gym – where your health journey begins. More than just a fitness center, we at LAMCA Gym have cultivated a cohesive community where the passion for health and well-being is unwavering. Our name, composed of the initials of founders Lars, Anders, Mickey, Chung, and Arta, stands for diversity and expertise in fitness and personal training. Each day, we embrace our mission to highlight physical training as a cornerstone of a balanced lifestyle.</p>
-                <video height="600" width=" 900" autoplay muted>
-                    <source src="images/video.mp4" type="video/mp4">
-                    
+                <!-- Video -->
+                <video autoplay muted>
+                    <source src="images/video.mp4" type="video/mp4">   
                 </video>
+                <!-- Features section -->
             <div class="row boxes">
+                 <!-- Feature boxes -->
                 <div class="box">
-                    <img src="images/gym.jpg" height="200" width="300">
-                    <h4>dumbbells</h4>
-                    <p>Dumbbells are incredibly versatile pieces of exercise equipment that can be used for a wide range of workouts, targeting various muscle groups.</p>
+                    <img src="images/GymL.jpg" alt="a gym">
+                    <h4>Gym Facilities</h4>
+                    <p>We offer a diverse range of equipment to suit all your fitness needs. Our cardio section is equipped with the latest treadmills and elliptical machines, positioned to provide inspiring views of the city as you train.</p>
                 </div>
                 <div class="box">
-                    <img src="images/dumbbells.jpg" height="200" width="300">
-                    <h4>dumbbells</h4>
-                    <p>Dumbbells are incredibly versatile pieces of exercise equipment that can be used for a wide range of workouts, targeting various muscle groups.</p>
+                    <img src="images/kettlebells.jpg" alt="a pair of item">
+                    <h4>kettlebells</h4>
+                    <p>At Lamca Gym, kettlebells are key to reaching your fitness goals. Our expert trainers tailor personalized workouts for all fitness levels, maximizing results.</p>
                 </div>
                 <div class="box">
-                    <img src="images/weightlifting.jpg" height="200" width="300">
-                    <h4>dumbbells</h4>
-                    <p>Dumbbells are incredibly versatile pieces of exercise equipment that can be used for a wide range of workouts, targeting various muscle groups.</p>
+                    <img src="images/weight.jpg" alt="a pair of weight">
+                    <h4>weightlifting</h4>
+                    <p>Discover the transformative power of weightlifting with us. Our facilities and supportive community are here to help you reach your full potential, whether you aim to build strength, or lead a healthier life.</p>
                 </div>
                 <div class="box">
-                    <img src="images/band.jpg" height="200" width="300">
+                    <img src="images/band.jpg" alt="gym bands">
                     <h4>dumbbells</h4>
-                    <p>Dumbbells are incredibly versatile pieces of exercise equipment that can be used for a wide range of workouts, targeting various muscle groups.</p>
+                    <p>Elevate your strength training with our premium dumbbells and resistance bands at Lamca Gym. Join us today to start your journey to a stronger, healthier you!</p>
                 </div>
                 <div class="box">
-                    <img src="images/barbell.jpg" height="200" width="300">
-                    <h4>dumbbells</h4>
-                    <p>Dumbbells are incredibly versatile pieces of exercise equipment that can be used for a wide range of workouts, targeting various muscle groups.</p>
+                    <img src="images/yogaitem.jpg" alt="gym barbells">
+                    <h4>Yoga Space</h4>
+                    <p>Within our gym, you'll find a sanctuary for both body and mind. In addition to traditional strength training equipment, discover the transformative practices of yoga.</p>
                 </div>
-                <div class="box">
+                 <!-- Register button -->
+                <div class="box btn">
                     <a href="login.html"><button class= "primaryButton">Register Now</button></a>
                 </div>
             </div>   
         </div>
-
-        <footer class="footer">
+        <!-- Our gym section ends here -->
+        
+        <!-- Footer section starts here -->
+        <footer class="footer menu">
             <div class="hours-grid">
                 <h2>Opening hours</h2>
                 <p class="monday">Monday: 07:00 - 23:00</p>
@@ -110,16 +110,15 @@
         
             <div>
                 <h2>LAMCA GYM</h2>
-                <p>About</p>
-                <p>Contact</p>
-                <p>Follow us!</p>
-                <p>Become a Partner</p>
+                <p><a href="who-are-we.html">Who Are We</a></p>
+                <p><a href="who-are-we.html#contactForm">Contact</a></p>
+                <p><a href="https://www.instagram.com/artarch4/" target="_blank">Follow us</a></p>
+                <p><a href="who-are-we.html">Become a partner</a></p>
             </div>
         </footer>
+         <!-- Footer section ends -->
         
-        <script src="script/Userlogin.js" defer></script>
+
 </body>
-
-
 
 </html>
