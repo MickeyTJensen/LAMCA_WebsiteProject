@@ -1,5 +1,4 @@
-document.addEventListener('DOMContentLoaded', function() {
-  var currentEvent = null; // Håller reda på det aktuella eventet för bokning/avbokning
+
 
   // Generera evenemang
   function generateEvents() {
@@ -48,55 +47,89 @@ document.addEventListener('DOMContentLoaded', function() {
     return events;
   }
 
-  // Hämta evenemang
-  function getEvents() {
-    let storedEvents = localStorage.getItem('events');
-    if (storedEvents) {
-      return JSON.parse(storedEvents);
-    } else {
-      return generateEvents();
-    }
+  // Hämta evenemang från servern
+  function fetchEvents(fetchInfo, successCallback, failureCallback) {
+      fetch('/sessions/all')
+          .then(response => response.json())
+          .then(sessions => {
+              const events = sessions.map(session => {
+                  return {
+                      id: session.sessionId, // Antag att din backend använder 'sessionId' som fält
+                      title: session.sessionType, // Anpassa enligt ditt datamodell, kanske 'sessionType'
+                      start: session.time, // Formatet måste matcha ISO 8601, t.ex. "2020-09-01T12:00:00"
+                      end: calculateEndTime(session.time, session.duration) // Du behöver beräkna slutet baserat på starttid och varaktighet
+                  };
+              });
+              successCallback(events); // Använd successCallback för att skicka eventen till kalendern
+          })
+          .catch(error => {
+              console.error('Error fetching sessions:', error);
+              failureCallback(error); // Använd failureCallback vid fel
+          });
+  }
+
+  function calculateEndTime(startTime, duration) {
+      // Antag att 'duration' är i minuter och 'startTime' är en sträng i ISO 8601-format
+      let start = new Date(startTime);
+      return new Date(start.getTime() + duration * 60000).toISOString(); // Lägg till 'duration' i minuter till starttiden
   }
 
   // Boka evenemang
-  function bookEvent() {
-    let events = getEvents();
-    let event = events.find(e => e.id === currentEvent.id);
-    if (event) {
-      event.isBooked = true;
-      localStorage.setItem('events', JSON.stringify(events));
-      alert("Passet har bokats.");
-      window.location.reload();
-    }
+  function bookSession(sessionId) {
+    fetch(`/sessions/book/${sessionId}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        // Inkludera headers för autentisering om så krävs
+      }
+    })
+    .then(response => {
+      if (response.ok) {
+        alert('Session bokad.');
+        // Uppdatera kalendern här
+      } else {
+        alert('Kunde inte boka sessionen.');
+      }
+    });
   }
 
   // Avboka evenemang
-  function cancelBooking() {
-    let events = getEvents();
-    let event = events.find(e => e.id === currentEvent.id);
-    if (event) {
-      event.isBooked = false;
-      localStorage.setItem('events', JSON.stringify(events));
-      alert("Passet har avbokats.");
-      window.location.reload();
-    }
+  function cancelBooking(sessionId) {
+    fetch(`/sessions/cancel/${sessionId}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        // Inkludera headers för autentisering om så krävs
+      }
+    })
+    .then(response => {
+      if (response.ok) {
+        alert('Session avbokad.');
+        // Uppdatera kalendern här
+      } else {
+        alert('Kunde inte avboka sessionen.');
+      }
+    });
   }
 
   // Skapa kalendern
-  var calendarEl = document.getElementById('calendar');
-  var calendar = new FullCalendar.Calendar(calendarEl, {
-    columnWidth: 100,
-    initialView: 'timeGridWeek',
-    firstDay: 1,
-    slotMinTime: "07:00:00",
-    slotMaxTime: "20:15:00",
-    slotDuration: "00:10:00",
-    headerToolbar: {
-      left: 'prev,next today',
-      center: 'title',
-      right: 'timeGridDay,timeGridWeek,dayGridMonth'
-    },
-    events: getEvents(),
+ document.addEventListener('DOMContentLoaded', function() {
+     var calendarEl = document.getElementById('calendar');
+     var calendar = new FullCalendar.Calendar(calendarEl, {
+        columnWidth: 100,
+         initialView: 'timeGridWeek',
+         firstDay: 1, // Första dagen i veckan, 0: Söndag, 1: Måndag, etc.
+         slotMinTime: '07:00:00', // Starttid för dagens slots
+         slotMaxTime: '22:00:00', // Sluttid för dagens slots
+         slotDuration: "00:10:00",
+         headerToolbar: {
+             left: 'prev,next today',
+             center: 'title',
+             right: 'dayGridMonth,timeGridWeek,timeGridDay'
+         },
+         events: function(fetchInfo, successCallback, failureCallback) {
+             fetchEvents(fetchInfo, successCallback, failureCallback);
+         },
     eventClick: function(info) {
 
       currentEvent = info.event; // Sätt nuvarande event till det klickade eventet
@@ -117,41 +150,41 @@ document.addEventListener('DOMContentLoaded', function() {
       // Skapa en övergripande container
       var eventElement = document.createElement('div');
       eventElement.classList.add('fc-event-custom');
-    
+
       // Kontrollera om evenemanget är fullbokat
       var isFull = arg.event.extendedProps.booked >= arg.event.extendedProps.maxCapacity;
       eventElement.classList.add(isFull ? 'full' : 'available');
-    
+
       var titleElement = document.createElement('div');
       titleElement.classList.add('fc-event-title');
       titleElement.innerHTML = `<strong>${arg.event.title}</strong>`;
       eventElement.appendChild(titleElement);
-    
+
       var idElement = document.createElement('div');
       idElement.classList.add('fc-event-id');
       idElement.textContent = `ID: ${arg.event.id}`;
       eventElement.appendChild(idElement);
-    
+
       var timeElement = document.createElement('div');
       timeElement.classList.add('fc-event-time');
       var startTime = FullCalendar.formatDate(arg.event.start, { hour: '2-digit', minute: '2-digit', hour12: false });
       var endTime = FullCalendar.formatDate(arg.event.end, { hour: '2-digit', minute: '2-digit', hour12: false });
       timeElement.textContent = `${startTime} - ${endTime}`;
       eventElement.appendChild(timeElement);
-    
+
       var instructorElement = document.createElement('div');
       instructorElement.classList.add('fc-event-instructor');
       instructorElement.textContent = `Instruktör: ${arg.event.extendedProps.instructor}`;
       eventElement.appendChild(instructorElement);
-    
+
       var bookedElement = document.createElement('div');
       bookedElement.classList.add('fc-event-booked');
       bookedElement.textContent = `Bokade: ${arg.event.extendedProps.booked}/${arg.event.extendedProps.maxCapacity}`;
       eventElement.appendChild(bookedElement);
-    
+
       return { domNodes: [eventElement] };
     }
-    
+
   });
 
   calendar.render();
@@ -173,4 +206,21 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
 });
+
+
+
+// Exempel på hur du använder dessa funktioner
+document.addEventListener('DOMContentLoaded', function() {
+    // Kontrollera om användaren är inloggad
+    if (localStorage.getItem('userToken')) {
+        // Användaren är inloggad
+        document.getElementById('loginRegisterLinks').style.display = 'none';
+        document.getElementById('logoutContainer').style.display = 'block';
+    } else {
+        // Användaren är inte inloggad
+        document.getElementById('loginRegisterLinks').style.display = 'block';
+        document.getElementById('logoutContainer').style.display = 'none';
+    }
+});
+
 
