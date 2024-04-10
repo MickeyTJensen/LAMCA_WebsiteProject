@@ -2,12 +2,16 @@ package com.example.lamcagym.Service;
 
 
 import com.example.lamcagym.Entity.Session;
+import com.example.lamcagym.Entity.SessionDTO;
 import com.example.lamcagym.Repository.SessionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class SessionService {
@@ -53,5 +57,19 @@ public class SessionService {
 
     public ArrayList<Session> getAllSessions() {
         return (ArrayList<Session>) sessionRepository.findAll();
+    }
+
+    // Inom SessionService eller SessionController
+    public List<SessionDTO> getAllSessionDTOs() {
+        List<Session> sessions = sessionRepository.findAll();
+        return sessions.stream().map(session -> {
+            SessionDTO dto = new SessionDTO();
+            dto.setId(session.getSessionId().toString());
+            dto.setTitle(session.getSessionType());
+            dto.setStart(session.getTime().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime());
+            dto.setDuration(session.getDuration()); // Anta att du har en getter för duration
+            dto.calculateEnd(); // Beräknar `end` baserat på `start` och `duration`
+            return dto;
+        }).collect(Collectors.toList());
     }
 }

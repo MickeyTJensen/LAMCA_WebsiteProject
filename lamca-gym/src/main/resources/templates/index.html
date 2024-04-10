@@ -38,9 +38,15 @@
             <a href="ourgym.html">Our Gym</a>
             <a href="membership.html">Membership</a>
             <a href="trainer.html">Trainers</a>
-            <a href="personalpage.html" id="personalPageLink" style="display: none;">Personal Page</a>
-            <a href="#" id="logoutLink" style="display: none;">Logga ut</a>
-            <a href="login.html" id="loginLink">Register Now / Log In</a>
+            <div id="welcomeUser" style="display: none;">
+                <a href="personalpage.html" id="personalPageLink">Welcome, </a>
+            </div>
+            <div id="logoutContainer" style="display: none;">
+                <a href="#" id="logoutLink">Logga ut</a>
+            </div>
+            <div id="loginRegisterLinks">
+                <a href="login.html" id="loginLink">Register Now / Log In</a>
+            </div>
         </nav>
         
         
@@ -53,7 +59,7 @@
 <main>
     <div class="video-overlay">
         <video autoplay loop id="background-video">
-            <source src="images/index_gym_video.mp4" type="video/mp4">
+            <source th:src="@{/images/index_gym_video.mp4}" type="video/mp4">
         </video>
     </div>
     
@@ -114,13 +120,14 @@
 <footer class="footer">
     <div class="hours-grid">
         <h2>Opening hours</h2>
-        <p class="monday">Mon: 07:00 - 23:00</p>
-        <p class="tuesday">Tue: 07:00 - 23:00</p>
-        <p class="wednesday">Wed: 07:00 - 23:00</p>
-        <p class="thursday">Thu: 07:00 - 23:00</p>
-        <p class="friday">Fri: 07:00 - 23:00</p>
-        <p class="saturday">Sat: 07:00 - 23:00</p>
-        <p class="sunday">Sun: 07:00 - 23:00</p>
+        <p><span class="day">Monday:</span> <span class="time">07:00 - 23:00</span></p>
+        <p><span class="day">Tuesday:</span> <span class="time">07:00 - 23:00</span></p>
+        <p><span class="day">Wednesday:</span> <span class="time">07:00 - 23:00</span></p>
+        <p><span class="day">Thursday:</span> <span class="time">07:00 - 23:00</span></p>
+        <p><span class="day">Friday:</span> <span class="time">07:00 - 23:00</span></p>
+        <p><span class="day">Saturday:</span> <span class="time">07:00 - 23:00</span></p>
+        <p><span class="day">Sunday:</span> <span class="time">07:00 - 23:00</span></p>
+
     </div>
 
     <div class="location-grid">
@@ -132,11 +139,11 @@
     </div>
 
     <div class="about-grid">
-        <h2>LAMCA GYM</h2>
-        <p>About</p>
-        <p>Contact</p>
-        <p>Follow us!</p>
-        <p>Become a Partner</p>
+        <h2>Lamca Gym</h2>
+        <p><a href="who-are-we.html">Who Are We</a></p>
+        <p><a href="who-are-we.html#contactForm">Contact</a></p>
+        <p><a href="https://www.instagram.com/artarch4/" target="_blank">Follow us</a></p>
+        <p><a href="who-are-we.html">Become a partner</a></p>
     </div>
 </footer>
 
@@ -161,7 +168,7 @@
             // Jämför länkens sökväg med den nuvarande sidans sökväg
             // och markera länken som aktiv om de matchar
             if (linkPath === currentPath) {
-                link.classList.add('active-link'); // Ta bort punkten här också
+                link.classList.add('active-link');
             }
         });
     });

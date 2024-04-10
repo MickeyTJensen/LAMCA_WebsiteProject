@@ -1,6 +1,8 @@
 package com.example.lamcagym.Controller;
 
 import com.example.lamcagym.Entity.User;
+import com.example.lamcagym.LoginRequest;
+import com.example.lamcagym.RegisterRequest;
 import com.example.lamcagym.Service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,6 +11,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/user")
@@ -57,22 +61,44 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Failed to save.");
     }
     @PostMapping("/login")
-    public ResponseEntity<?> loginRequest(String email, String password){
+    public ResponseEntity<?> loginRequest(@RequestBody Map<String, String> loginDetails){
+        String email = loginDetails.get("email");
+        String password = loginDetails.get("password");
         User user = userService.getUserByEmail(email);
         if(user != null && user.getPassword().equals(password)){
             logger.info(user.getName() + " Successfully login");
-            return ResponseEntity.status(HttpStatus.OK).body("Successfully login");
+            // Använd ett Map-objekt för att skapa ett JSON-svar
+            Map<String, String> response = new HashMap<>();
+            response.put("message", "Successfully login");
+            response.put("name", user.getName());
+            return ResponseEntity.ok().body(response);
         }
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User doesn't exists");
+        Map<String, String> response = new HashMap<>();
+        response.put("message", "User doesn't exists");
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
     }
+
+
     @PostMapping("/register")
-    public ResponseEntity<?> registerUser(String name, String email, String phoneNumber, String password){
-        User newUser = new User(name,email,phoneNumber,password);
-        boolean success = userService.createUser(newUser);
-        if(success){
-            return ResponseEntity.status(HttpStatus.CREATED).body(newUser);
+    public ResponseEntity<?> registerUser(@RequestBody RegisterRequest registerRequest){
+        // Kontrollera först om användaren redan existerar med den angivna e-postadressen
+        if(userService.existsByEmail(registerRequest.getEmail())) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Email already in use.");
         }
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Failure");
+
+        User newUser = new User(
+                registerRequest.getName(),
+                registerRequest.getEmail(),
+                registerRequest.getPhoneNumber(),
+                registerRequest.getPassword()
+        );
+
+        boolean success = userService.createUser(newUser);
+        if(success) {
+            return ResponseEntity.status(HttpStatus.CREATED).body("User successfully created.");
+        } else {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to create user.");
+        }
     }
     @DeleteMapping("/")
     public ResponseEntity<?> deleteUser(@RequestParam int id) {
