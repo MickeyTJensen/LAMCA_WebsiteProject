@@ -192,3 +192,7 @@ span:hover {
   color: #f09401; /* Exempel: Gör den aktiva fliken orange */
   background-color: #f09401;
 }
+.error-message {
+    color: red;
+    margin-top: 5px;
+}
