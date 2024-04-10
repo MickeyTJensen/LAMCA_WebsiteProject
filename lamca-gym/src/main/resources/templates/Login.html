@@ -15,7 +15,7 @@
             align-items: center;
             justify-content: center;
             height: 100vh;
-            background: linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.9)), url('/frontend/images/bgd_logo_signup.jpg');
+            background: linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.9)), url('/images/bgd_logo_signup.jpg');
             background-size: cover;
             background-position: center;
         }
@@ -77,41 +77,10 @@
             <input type="text" id="loginEmail" name="email" placeholder="Email" style="color: black;">
             <input type="password" id="loginPassword" name="password" placeholder="Password" style="color: black;">
             <div><button type="submit">Log In</button></div>
-            <p th:text="${message}"></p>
+            <div id="loginMessage"></div>
             <p>Not a member? <span id="toggleToSignup" style="color: #f09401; cursor: pointer;">create account</span></p>
         </form>
     </div>
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-        // Hämta sökvägsdelen av den nuvarande sidans URL
-        const currentPath = window.location.pathname;
-
-        // Hämta alla navigationslänkar
-        const navLinks = document.querySelectorAll('.navbar a');
-
-        // Iterera över alla länkar
-        navLinks.forEach(link => {
-            // Ta bort 'active-link' från alla länkar
-            link.classList.remove('active-link');
-
-            // Hämta länktexten
-            const linkText = link.textContent.trim();
-
-            // Exkludera "Logout"-länken baserat på länktexten
-            if (linkText === 'Logga ut') {
-                return;
-            }
-
-            // Skapa en ny URL baserat på länkens href-attribut för att hantera relativa och absoluta URL:er korrekt
-            const linkPath = new URL(link.href, window.location.origin).pathname;
-
-            // Jämför länkens sökväg med den nuvarande sidans sökväg
-            // och markera länken som aktiv om de matchar
-            if (linkPath === currentPath) {
-                link.classList.add('active-link');
-            }
-        });
-    </script>
-    <script src="script/Login.js" defer></script>
+    <script th:src="@{/script/Login.js}" defer></script>
 </body>
 </html>

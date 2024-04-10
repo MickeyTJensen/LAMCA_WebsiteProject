@@ -41,7 +41,7 @@
 .text-content h2{
   padding-bottom: 20px;
   text-align: center;
-  font-size: 48px;
+  font-size: 4.8rem;
 }
 
 .text-content p{
@@ -49,7 +49,7 @@
   text-align: center;
   margin-left: 20%;
   margin-right: 20%;
-  font-size: 24px;
+  font-size: 2.4rem;
 }
 
 /* Generella stilar för alla sektioner */
@@ -84,6 +84,7 @@
   height: auto;
   object-fit: cover;
 }
+
 
 .video.muted:after {
   opacity: 1; /* Visa overlay när videon är dempad */
@@ -306,9 +307,4 @@
 	}
 }
 
-@media (max-width: 1920px) {
-  .container {
-    transform: scale(0.75);
-    transform-origin: top left;
-  }
-}
+

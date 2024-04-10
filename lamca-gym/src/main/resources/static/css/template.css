@@ -67,6 +67,10 @@ body {
   border-radius: .5rem;
 }
 
+.heading span, .text-content h2, .text-content p {
+  font-size: 2.5vw; /* Exempel: Gör textstorleken responsiv */
+}
+
 .btn {
   margin-top: 1rem;
   display: inline-block;
@@ -121,6 +125,15 @@ body {
 
 .header .navbar a:hover {
   background: #f09401;
+}
+
+.header .navbar {
+  display: flex;
+  align-items: center;
+  justify-content: start; /* Ändra till start för att linjera länkar till vänster */
+  flex-wrap: nowrap; /* Förhindrar att länkarna omsluts till en ny rad */
+  padding: 0; /* Justera efter behov */
+  margin: 0; /* Justera efter behov */
 }
 
 
@@ -222,3 +235,85 @@ h2 {
   }
 }
 
+@media (max-width: 768px) {
+  .header, .footer {
+    flex-direction: column;
+    padding: 2rem 1rem; /* Mindre padding */
+  }
+
+  .header .logo, .footer .logo {
+    font-size: 2rem; /* Mindre fontstorlek */
+  }
+
+  .header .navbar a, .footer .navbar a {
+    font-size: 1.4rem; /* Mindre länkar */
+    padding: 1rem; /* Mindre padding */
+  }
+  .heading span, .text-content h2 {
+      font-size: 5vw; /* Större text på mindre skärmar */
+    }
+  .logo-img, .text-content {
+      width: 90%; /* Använd procentbaserad bredd för bättre skalbarhet */
+      max-width: 600px; /* Sätt en maxbredd för att förhindra att elementen blir för stora på breda skärmar */
+      margin: 0 auto; /* Centrera innehållet */
+    }
+  .footer {
+      height: 100px; /* Minskad höjd */
+      font-size: 0.9rem; /* Minskad textstorlek */
+      padding: 5px 3%; /* Justerad padding */
+    }
+
+    html {
+        font-size: 50%; /* Gör all text och layout mindre för att passa bättre på mindre enheter */
+      }
+}
+
+@media (max-width: 1440px) {
+  html {
+    font-size: 58%; /* Mindre än 62.5% för att kompensera för mindre skärmar */
+  }
+  .location-grid{
+    text-align: center;
+    margin-left: -6%;
+  }
+  .footer {
+        height: 100px; /* Minskad höjd */
+        font-size: 0.9rem; /* Minskad textstorlek */
+        padding: 5px 3%; /* Justerad padding */
+      }
+}
+
+@media (max-width: 1080px) {
+  html {
+    font-size: 55%;
+  }
+  /* Mindre marginaler och padding för hela sidans innehåll */
+    .section, .container {
+      padding: 2rem 1rem;
+      }
+
+      /* Anpassa storleken på rubriker och text för att förbättra läsbarheten */
+        .heading, .text-content p, .text-content h2 {
+          text-align: left;
+          font-size: 4vw;
+        }
+        .footer {
+              height: 100px; /* Minskad höjd */
+              font-size: 0.9rem; /* Minskad textstorlek */
+              padding: 5px 3%; /* Justerad padding */
+            }
+}
+
+
+/* Anpassning för mobiltelefoner */
+@media (max-width: 480px) {
+  .footer {
+    height: 80px; /* Ytterligare minskad höjd för mycket små skärmar */
+    font-size: 0.8rem; /* Ytterligare minskad textstorlek */
+    padding: 5px 2%; /* Minskad padding */
+  }
+
+  .footer .logo, .footer .navbar a {
+    font-size: 0.7rem; /* Minska även textstorleken för logo och navigeringslänkar */
+  }
+}
