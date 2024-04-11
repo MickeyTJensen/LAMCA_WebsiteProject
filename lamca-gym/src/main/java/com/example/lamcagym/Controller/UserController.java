@@ -31,17 +31,19 @@ public class UserController {
         return (ArrayList<User>) userService.getAll();
     }
 
-    @GetMapping("/")
-    public ResponseEntity<User> userGetById(@RequestParam int id) {
+    @GetMapping("/{id}")
+    public ResponseEntity<User> userGetById(@PathVariable int id) {
         logger.info("Requested user by ID: {}", id);
         User user = userService.getUser(id);
         if (user != null) {
             logger.info("User with ID: {} found.", id);
             return ResponseEntity.status(HttpStatus.OK).body(user);
+        } else {
+            logger.warn("User with ID: {} not found.", id);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
-        logger.warn("User with ID: {} not found.", id);
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
     }
+
 
     @PostMapping("/")
     public ResponseEntity<?> createUser(
@@ -70,6 +72,7 @@ public class UserController {
             // Använd ett Map-objekt för att skapa ett JSON-svar
             Map<String, String> response = new HashMap<>();
             response.put("message", "Successfully login");
+            response.put("userId", user.getUserId().toString());
             response.put("name", user.getName());
             return ResponseEntity.ok().body(response);
         }
@@ -113,22 +116,17 @@ public class UserController {
         }
     }
 
-    @PutMapping("/")
-    public ResponseEntity<?> updateUser(
-            @RequestParam int id,
-            @RequestParam String name,
-            @RequestParam String email,
-            @RequestParam("phone_number") String phoneNumber,
-            @RequestParam String password) {
-
+    @PutMapping("/updateUser/{id}")
+    public ResponseEntity<?> updateUser(@PathVariable Integer id, @RequestBody User userDetails) {
         logger.info("Attempting to update user with ID: {}", id);
-        User user = userService.getUser(id);
-        if (user != null) {
-            user.setName(name);
-            user.setEmail(email);
-            user.setPhoneNumber(phoneNumber);
-            user.setPassword(password);
-            boolean success = userService.updateUser(user);
+        User existingUser = userService.getUser(id); // Antag att getUserById är en metod som hämtar användare baserat på ID
+        if (existingUser != null) {
+            existingUser.setName(userDetails.getName());
+            existingUser.setEmail(userDetails.getEmail());
+            existingUser.setPhoneNumber(userDetails.getPhoneNumber());
+            existingUser.setPassword(userDetails.getPassword());
+
+            boolean success = userService.updateUser(existingUser); // Antag att updateUser sparar de ändrade detaljerna
             if (success) {
                 logger.info("User with ID: {} successfully updated.", id);
                 return ResponseEntity.ok().body("User with ID: " + id + " successfully updated.");
@@ -136,9 +134,10 @@ public class UserController {
                 logger.warn("Could not update user with ID: {}.", id);
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Could not update user with ID: " + id);
             }
+        } else {
+            logger.warn("User with ID: {} not found.", id);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User with ID: " + id + " not found.");
         }
-        logger.warn("User with ID: {} not found.", id);
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User with ID: " + id + " not found.");
     }
 }
 

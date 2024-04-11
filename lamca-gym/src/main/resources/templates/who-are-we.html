@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://thymeleaf.org" lang="en">
+<html xmlns:th="http://thymeleaf.org" xmlns="http://www.w3.org/1999/html" lang="en">
 
 <head>
     <meta charset="UTF-8">
@@ -52,7 +52,7 @@
             <img src="images/group.jpg" alt="Wellness">
         </div>
         <figure>
-            <p class="moto">"Empower Your Journey, Transform Your Life" - <span><br>LAMCA<span class="gym">GYM</span><span></p>
+            <p class="moto">"Empower Your Journey, Transform Your Life" - <span><br>LAMCA<span class="gym">GYM</span></span></p>
             <figure>
                 <img src="images/Partners.jpg" height="440" width="1170">
             </figure>
@@ -88,6 +88,8 @@
                 </form>
             </div>
     </div>
+
+
     <!-- Whoarewe section ends     -->
 
     <footer class="footer menu">
@@ -161,11 +163,13 @@
                 // Jämför länkens sökväg med den nuvarande sidans sökväg
                 // och markera länken som aktiv om de matchar
                 if (linkPath === currentPath) {
-                    link.classList.add('active-link'); // Ta bort punkten här också
+                    link.classList.add('active-link');
                 }
             });
         });
     </script>
+    <script src="https://cdn.botpress.cloud/webchat/v1/inject.js"></script>
+    <script src="https://mediafiles.botpress.cloud/015530c3-be7c-4546-b954-f4d300002941/webchat/config.js" defer></script>
 
 </body>
 </html>

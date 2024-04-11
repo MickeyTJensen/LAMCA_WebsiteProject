@@ -43,8 +43,9 @@ function loginUser(email, password) {
     })
     .then(data => {
     console.log(data);
-            // Antag att `data.token` innehåller den token som ska sparas
             localStorage.setItem('userToken', data.token);
+            console.log("Sätter userId i localStorage:", data.userId);
+            localStorage.setItem('userId', data.userId);
             localStorage.setItem('userName', data.name);
             alert('Login lyckades! Du kommer nu att omdirigeras.');
             window.location.href = "/personalpage.html";

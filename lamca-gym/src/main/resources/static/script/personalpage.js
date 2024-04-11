@@ -223,4 +223,56 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
+// Funktion för att hämta och visa den inloggade användarens information
+function loadUserProfile() {
+    const userId = localStorage.getItem('userId');
+    if(userId) {
+        fetch(`/user/${userId}`)
+        .then(response => response.json())
+        .then(user => {
+            document.getElementById('fullName').value = user.name; // Använder egenskapen 'name'
+            document.getElementById('email').value = user.email; // Använder egenskapen 'email'
+            document.getElementById('phonenumber').value = user.phoneNumber; // Använder egenskapen 'phoneNumber'
+            document.getElementById('password').value = user.password; // Använder egenskapen 'password'
 
+        })
+        .catch(error => console.error('Error loading user profile:', error));
+    } else {
+        console.error('No user ID found in localStorage');
+    }
+}
+
+document.getElementById('userForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    const userId = localStorage.getItem('userId');
+    const updatedUser = {
+        id: userId,
+        name: document.getElementById('fullName').value,
+        email: document.getElementById('email').value,
+        phoneNumber: document.getElementById('phonenumber').value,
+        password: document.getElementById('password').value,
+    };
+
+    fetch(`/user/updateUser/${userId}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(updatedUser)
+    })
+    .then(response => {
+        if (response.ok) {
+            alert('Profile updated successfully.');
+            loadUserProfile(); // Laddar om användarprofilen efter en lyckad uppdatering
+        } else {
+            alert('Error updating profile.');
+        }
+    })
+    .catch(error => console.error('Error updating user profile:', error));
+});
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    loadUserProfile(); // Laddar användarprofil när sidan har laddats
+});
