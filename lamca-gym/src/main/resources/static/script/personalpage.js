@@ -1,3 +1,4 @@
+<<<<<<< HEAD
   // Generera evenemang
   function generateEvents() {
     let startDate = new Date();
@@ -43,6 +44,9 @@
     //localStorage.setItem('events', JSON.stringify(events));
     return events;
   }
+=======
+
+>>>>>>> Master
   // Hämta evenemang från servern
   function fetchEvents(fetchInfo, successCallback, failureCallback) {
       fetch('/sessions/all')
@@ -53,7 +57,9 @@
                       id: session.sessionId, // Antag att din backend använder 'sessionId' som fält
                       title: session.sessionType, // Anpassa enligt ditt datamodell, kanske 'sessionType'
                       start: session.time, // Formatet måste matcha ISO 8601, t.ex. "2020-09-01T12:00:00"
-                      end: calculateEndTime(session.time, session.duration) // Du behöver beräkna slutet baserat på starttid och varaktighet
+                      end: calculateEndTime(session.time, session.duration), // Du behöver beräkna slutet baserat på starttid och varaktighet
+                      instructor: session.instructor,
+                      capacity: session.capacity,
                   };
               });
               successCallback(events); // Använd successCallback för att skicka eventen till kalendern
@@ -70,6 +76,7 @@
       return new Date(start.getTime() + duration * 60000).toISOString(); // Lägg till 'duration' i minuter till starttiden
   }
 
+<<<<<<< HEAD
   // Boka evenemang
   /*function bookSession(sessionId) {
     var sessionId = event.target.getAttribute('bookBtn');
@@ -109,10 +116,54 @@
           } else {
               alert('Kunde inte boka sessionen.');
           }
+=======
+  function bookSession(sessionId) {
+      const userId = localStorage.getItem('userId');
+      if (!userId) {
+          alert("Du måste vara inloggad för att boka en session.");
+          return;
+      }
+
+      fetch(`/bookings/book`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ userId: parseInt(userId), sessionId: parseInt(sessionId) })
+      })
+      .then(response => {
+          if (!response.ok) {
+              // Hanterar serverfel (t.ex. 400 eller 500 felstatus)
+              throw new Error(`Server returned status: ${response.status}`);
+          }
+          return response.json();
+      })
+      .then(data => {
+          if (typeof data === 'object' && 'status' in data && 'message' in data) {
+              // Kontrollerar att datat innehåller förväntade fält
+              if (data.status === "success") {
+                  alert(data.message);
+              } else {
+                  throw new Error(data.message || "Ett fel inträffade.");
+              }
+          } else {
+              // Hanterar oväntat svarsformat
+              throw new Error("Unexpected response format");
+          }
+      })
+      .catch(error => {
+          // Hanterar både nätverksfel och fel från tidigare kastade undantag
+          console.error('Error booking session:', error);
+          alert(error.message);
+>>>>>>> Master
       });
   }
 
 
+<<<<<<< HEAD
+=======
+
+
+
+>>>>>>> Master
   // Avboka evenemang
   function cancelBooking(sessionId) {
     fetch(`/sessions/cancel/${sessionId}`, {
@@ -151,16 +202,25 @@
              fetchEvents(fetchInfo, successCallback, failureCallback);
          },
     eventClick: function(info) {
-
       currentEvent = info.event; // Sätt nuvarande event till det klickade eventet
       document.getElementById('modalTitle').textContent = currentEvent.title;
       document.getElementById('modalDescription').textContent = `Instruktör: ${currentEvent.extendedProps.instructor}`;
+
       let bookBtn = document.getElementById('bookBtn');
       let cancelBtn = document.getElementById('cancelBtn');
+
+      // Sätta sessionID som ett attribut på bokningsknappen
+      bookBtn.setAttribute('data-sessionid', currentEvent.id);
+      cancelBtn.setAttribute('data-sessionid', currentEvent.id);
+
+      // Använda arrow-funktion för att behålla rätt this-referens
+      bookBtn.onclick = () => bookSession(bookBtn.getAttribute('data-sessionid'));
+
       bookBtn.style.display = currentEvent.extendedProps.isBooked ? 'none' : 'inline-block';
       cancelBtn.style.display = currentEvent.extendedProps.isBooked ? 'none':'inline-block' ;
       document.getElementById('eventModal').style.display = 'block';
     },
+
 
     eventClassNames: function(arg) {
       return [arg.event.extendedProps.booked >= arg.event.extendedProps.maxCapacity ? 'full' : 'available'];
@@ -199,7 +259,7 @@
 
       var bookedElement = document.createElement('div');
       bookedElement.classList.add('fc-event-booked');
-      bookedElement.textContent = `Bokade: ${arg.event.extendedProps.booked}/${arg.event.extendedProps.maxCapacity}`;
+      bookedElement.textContent = `Lediga platser: ${arg.event.extendedProps.capacity}`;
       eventElement.appendChild(bookedElement);
 
       return { domNodes: [eventElement] };
@@ -243,4 +303,56 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
+// Funktion för att hämta och visa den inloggade användarens information
+function loadUserProfile() {
+    const userId = localStorage.getItem('userId');
+    if(userId) {
+        fetch(`/user/${userId}`)
+        .then(response => response.json())
+        .then(user => {
+            document.getElementById('fullName').value = user.name; // Använder egenskapen 'name'
+            document.getElementById('email').value = user.email; // Använder egenskapen 'email'
+            document.getElementById('phonenumber').value = user.phoneNumber; // Använder egenskapen 'phoneNumber'
+            document.getElementById('password').value = user.password; // Använder egenskapen 'password'
 
+        })
+        .catch(error => console.error('Error loading user profile:', error));
+    } else {
+        console.error('No user ID found in localStorage');
+    }
+}
+
+document.getElementById('userForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    const userId = localStorage.getItem('userId');
+    const updatedUser = {
+        id: userId,
+        name: document.getElementById('fullName').value,
+        email: document.getElementById('email').value,
+        phoneNumber: document.getElementById('phonenumber').value,
+        password: document.getElementById('password').value,
+    };
+
+    fetch(`/user/updateUser/${userId}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(updatedUser)
+    })
+    .then(response => {
+        if (response.ok) {
+            alert('Profile updated successfully.');
+            loadUserProfile(); // Laddar om användarprofilen efter en lyckad uppdatering
+        } else {
+            alert('Error updating profile.');
+        }
+    })
+    .catch(error => console.error('Error updating user profile:', error));
+});
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    loadUserProfile(); // Laddar användarprofil när sidan har laddats
+});

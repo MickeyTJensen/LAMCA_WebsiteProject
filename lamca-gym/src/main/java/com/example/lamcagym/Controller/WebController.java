@@ -91,7 +91,7 @@ public class WebController {
             booking.setSession(session);
             booking.setUser(user);
             // Sätt andra attribut för bokningen om det behövs
-            bookingService.createBooking(booking);
+            //bookingService.createBooking(booking);
             // Lägg till meddelande i modellen för att indikera att bokningen lyckades
             model.addAttribute("message", "Booking successful!");
         } else {

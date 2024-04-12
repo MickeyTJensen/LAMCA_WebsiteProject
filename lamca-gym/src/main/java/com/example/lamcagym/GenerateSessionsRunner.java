@@ -24,20 +24,19 @@ public class GenerateSessionsRunner implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         if (!sessionsExist()) {
-            List<SessionEvent> events = Arrays.asList(
-                    new SessionEvent("Yoga", LocalTime.of(7, 0), 90, 20, "Arta"),
-                    new SessionEvent("Yoga", LocalTime.of(8, 30), 90, 20, "Arta"),
-                    new SessionEvent("Yoga", LocalTime.of(10, 0), 90, 20, "Arta"),
-                    new SessionEvent("Gruppträning", LocalTime.of(11, 30), 90, 20, "Lars"),
-                    new SessionEvent("Gruppträning", LocalTime.of(13, 0), 90, 20, "Lars"),
-                    new SessionEvent("Gruppträning", LocalTime.of(14, 30), 90, 20, "Mickey"),
-                    new SessionEvent("Tabata", LocalTime.of(16, 0), 90, 20, "Anders"),
-                    new SessionEvent("Tabata", LocalTime.of(17, 30), 90, 20, "Anders"),
-                    new SessionEvent("Spinning", LocalTime.of(19, 0), 90, 20, "Chung"),
-                    new SessionEvent("Spinning", LocalTime.of(20, 30), 90, 20, "Chung")
-                    // Lägg till fler events här...
-            );
-
+        List<SessionEvent> events = Arrays.asList(
+                new SessionEvent("Yoga", LocalTime.of(7, 0), 90, 20, "Arta"),
+                new SessionEvent("Yoga", LocalTime.of(8, 30), 90, 20, "Arta"),
+                new SessionEvent("Yoga", LocalTime.of(10, 0), 90, 20, "Arta"),
+                new SessionEvent("Gruppträning", LocalTime.of(11, 30), 90, 20, "Lars"),
+                new SessionEvent("Gruppträning", LocalTime.of(13, 0), 90, 20, "Lars"),
+                new SessionEvent("Gruppträning", LocalTime.of(14, 30), 90, 20, "Mickey"),
+                new SessionEvent("Tabata", LocalTime.of(16, 0), 90, 20, "Anders"),
+                new SessionEvent("Tabata", LocalTime.of(17, 30), 90, 20, "Anders"),
+                new SessionEvent("Spinning", LocalTime.of(19, 0), 90, 20, "Chung"),
+                new SessionEvent("Spinning", LocalTime.of(20, 30), 90, 20, "Chung")
+                // Lägg till fler events här...
+        );
             LocalDate startDate = LocalDate.now();
             LocalDate endDate = startDate.plusMonths(6);
 
@@ -50,9 +49,10 @@ public class GenerateSessionsRunner implements CommandLineRunner {
             }
 
         } else {
-            System.out.println("Sessioner finns redan för den kommande 6 månaderna.");
-        }
+
+        System.out.println("Sessioner finns redan för den kommande 6 månaderna.");
     }
+}
     private boolean sessionsExist() throws SQLException {
         String checkSql = "SELECT COUNT(*) FROM Sessions WHERE date(time) BETWEEN ? AND ?";
         LocalDate sixMonthsFromNow = LocalDate.now().plusMonths(6);
@@ -148,7 +148,5 @@ public class GenerateSessionsRunner implements CommandLineRunner {
         public void setInstructor(String instructor) {
             this.instructor = instructor;
         }
-
-
     }
 }

@@ -20,7 +20,15 @@
     <link rel="stylesheet" th:href="@{/css/calendar.css}">
 
     <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js'></script>
-    
+    <style>
+        .bp-widget-side {
+        bottom: 0;
+        height: 40%;
+        left: auto;
+        right: 0;
+        width: 480px;
+        }
+    </style>
 </head>
 
 <body>
@@ -78,15 +86,13 @@
             <div class="profile-info">
                 <!-- Här kan användaren fylla i och spara information -->
                 <h2>Personal Information</h2>
-                <form>
-                    <label for="firstname">First name:</label>
-                    <input type="text" id="firstname" name="firstname">
-                    <label for="lastname">Last name:</label>
-                    <input type="text" id="lastname" name="lastname">
-                    <label for="phonenumber">Phone:</label>
-                    <input type="phonenumber" id="phonenumber" name="phonenumber">
+                <form id="userForm">
+                    <label for="fullName">First name:</label>
+                    <input type="text" id="fullName" name="fullName">
                     <label for="email">E-mail:</label>
                     <input type="email" id="email" name="email">
+                    <label for="phonenumber">Phone:</label>
+                    <input type="phonenumber" id="phonenumber" name="phonenumber">
                     <label for="password">Password: </label>
                     <input type="password" id="password" name="password">
                     <!-- Lägg till andra fält efter behov -->
@@ -116,12 +122,12 @@
         <p>0701- 234 567</p>
     </div>
 
-    <div>
-        <h2>LAMCA GYM</h2>
-        <p>About</p>
-        <p>Contact</p>
-        <p>Follow us!</p>
-        <p>Become a Partner</p>
+    <div class="about-grid">
+        <h2>Lamca Gym</h2>
+        <p><a href="who-are-we.html">Who Are We</a></p>
+        <p><a href="who-are-we.html#contactForm">Contact</a></p>
+        <p><a href="https://www.instagram.com/artarch4/" target="_blank">Follow us</a></p>
+        <p><a href="who-are-we.html">Become a partner</a></p>
     </div>
 </footer>
 
@@ -150,6 +156,9 @@
             });
         });
     </script>
+    <script src="https://cdn.botpress.cloud/webchat/v1/inject.js"></script>
+    <script src="https://mediafiles.botpress.cloud/015530c3-be7c-4546-b954-f4d300002941/webchat/config.js" defer></script>
+
 </body>
 
 </html>

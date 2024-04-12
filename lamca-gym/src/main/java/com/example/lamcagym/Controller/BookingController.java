@@ -1,5 +1,6 @@
 package com.example.lamcagym.Controller;
 
+import com.example.lamcagym.BookingRequest;
 import com.example.lamcagym.Entity.Booking;
 import com.example.lamcagym.Entity.Session;
 import com.example.lamcagym.Entity.User;
@@ -33,32 +34,9 @@ public class BookingController {
     }
 
     // Skapa en ny bokning
-    /*@PostMapping("/")
-    public ResponseEntity<?> createBooking(@RequestBody Booking booking) {
-        Booking createdBooking = bookingService.createBooking(booking);
-        if(createdBooking != null) {
-            return new ResponseEntity<>(createdBooking, HttpStatus.CREATED);
-        }
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-    }*/
-    @PostMapping("/")
-    public ResponseEntity<?> createBooking(@RequestParam Integer sessionId) {
-        Session session = sessionService.getSession(sessionId);
-        //User user = userService.getUser(userId);
-
-        if (session != null) {
-            Booking booking = new Booking();
-            booking.setSession(session);
-            //booking.setUser(user);
-            // Spara andra attribut för bokningen om det behövs
-            Booking createdBooking = bookingService.createBooking(booking);
-
-            if (createdBooking != null) {
-                return ResponseEntity.ok(createdBooking);
-            }
-        }
-
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Failed to create booking");
+    @PostMapping("/book")
+    public ResponseEntity<?> createBooking(@RequestBody BookingRequest bookingRequest) {
+        return bookingService.createBooking(bookingRequest);
     }
 
 
