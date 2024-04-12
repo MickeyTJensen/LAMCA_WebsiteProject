@@ -13,24 +13,21 @@ import java.util.Date;
 @AllArgsConstructor
 @Table(name = "bookings")
 public class Booking {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "bookings_id")
     private Integer bookingId;
 
-    @Column(name = "user_id")
-    private Integer userId;
-
-    @Column(name = "sessions_id")
-    private Integer sessionsId;
-
     @Column(name = "booking_time")
     private Date bookingTime;
 
-    public Booking(Integer userId, Integer sessionsId, Date bookingTime) {
-        this.userId = userId;
-        this.sessionsId = sessionsId;
-        this.bookingTime = bookingTime;
-    }
+    // Many-to-one relation with User
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    // Many-to-one relation with Session
+    @ManyToOne
+    @JoinColumn(name = "sessions_id")
+    private Session session;
 }

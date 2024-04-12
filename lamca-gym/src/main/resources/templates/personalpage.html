@@ -58,16 +58,18 @@
 
     <!-- Main section starts     -->
     <main>
-        <div id='calendar' class="calendar-container"></div>
-        <div id="eventModal" class="modal">
-            <div id="modal-content">
-                <span id="close" class="close">Close</span>
-                <h2 id="modalTitle"></h2>
-                <p id="modalDescription"></p>
-                <button id="bookBtn">Boka</button>
-                <button id="cancelBtn">Avboka</button>
-            </div>
+        <form th:action="@{/bookings}" th:medthod="POST">
+            <div id='calendar' class="calendar-container"></div>
+            <div id="eventModal" class="modal">
+                <div id="modal-content">
+                    <span id="close" class="close">Close</span>
+                    <h2 id="modalTitle"></h2>
+                    <p id="modalDescription"></p>
+                    <button id="bookBtn">Boka</button>
+                    <button id="cancelBtn">Avboka</button>
+                </div>
         </div>
+        </form>
         <div class="info-box">
             <div class="profile-picture">
                 <!-- Här placeras användarens profilbild -->

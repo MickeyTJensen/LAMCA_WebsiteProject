@@ -8,6 +8,8 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
+import java.util.List;
+
 @Data
 @Entity
 @NoArgsConstructor
@@ -39,6 +41,14 @@ public class User {
     @Size(min = 6, message = "Password must be at least 6 characters long")
     @Column(name = "password")
     private String password;
+
+    // One-to-many relation with Booking
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Booking> bookings;
+
+    // One-to-one relation with Calendar
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    private Calendar calendar;
 
     // Den här konstruktorn är inte nödvändig om du använder Lomboks @AllArgsConstructor
     // Men om du behöver skräddarsy vilka fält som inkluderas i konstruktorn, kan du behålla den

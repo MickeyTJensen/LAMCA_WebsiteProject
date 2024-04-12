@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Date;
+import java.util.List;
 
 @Data
 @Entity
@@ -36,11 +37,14 @@ public class Session {
     @Column(name = "instructor", length = 100)
     private String instructor;
 
-    public Session(String sessionType, Date time, Integer duration, Integer capacity, String instructor) {
-        this.sessionType = sessionType;
-        this.time = time;
-        this.duration = duration;
-        this.capacity = capacity;
-        this.instructor = instructor;
+    // One-to-many relation with Booking
+    @OneToMany(mappedBy = "session", cascade = CascadeType.ALL)
+    private List<Booking> bookings;
+
+    // One-to-many relation with Calendar
+    @OneToMany(mappedBy = "session", cascade = CascadeType.ALL)
+    private List<Calendar> calendars;
+
+    public Session(String sessionType, Date sessionTime, Integer duration, Integer capacity, String instructor) {
     }
 }

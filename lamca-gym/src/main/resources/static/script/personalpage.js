@@ -1,5 +1,3 @@
-
-
   // Generera evenemang
   function generateEvents() {
     let startDate = new Date();
@@ -42,11 +40,9 @@
         });
       });
     }
-
-    localStorage.setItem('events', JSON.stringify(events));
+    //localStorage.setItem('events', JSON.stringify(events));
     return events;
   }
-
   // Hämta evenemang från servern
   function fetchEvents(fetchInfo, successCallback, failureCallback) {
       fetch('/sessions/all')
@@ -75,7 +71,8 @@
   }
 
   // Boka evenemang
-  function bookSession(sessionId) {
+  /*function bookSession(sessionId) {
+    var sessionId = event.target.getAttribute('bookBtn');
     fetch(`/sessions/book/${sessionId}`, {
       method: 'POST',
       headers: {
@@ -91,7 +88,30 @@
         alert('Kunde inte boka sessionen.');
       }
     });
+  }*/
+  function bookSession(sessionId) {
+       if (!currentEvent) {
+          console.error('Not such event.');
+          return;
+      }
+      var sessionId = currentEvent.id;
+      fetch(`/bookings/?sessionId=${sessionId}`, {
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json',
+              // Inkludera headers för autentisering om så krävs
+          }
+      })
+      .then(response => {
+          if (response.ok) {
+              alert('Session bokad.');
+              // Uppdatera kalendern här
+          } else {
+              alert('Kunde inte boka sessionen.');
+          }
+      });
   }
+
 
   // Avboka evenemang
   function cancelBooking(sessionId) {
@@ -190,7 +210,7 @@
   calendar.render();
 
   // Eventlyssnare för bokningsknappar
-  document.getElementById('bookBtn').addEventListener('click', bookEvent);
+  document.getElementById('bookBtn').addEventListener('click', bookSession);
   document.getElementById('cancelBtn').addEventListener('click', cancelBooking);
 
   // Hantera stängning av modal

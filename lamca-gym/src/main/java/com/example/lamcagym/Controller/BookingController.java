@@ -1,11 +1,19 @@
 package com.example.lamcagym.Controller;
 
 import com.example.lamcagym.Entity.Booking;
+import com.example.lamcagym.Entity.Session;
+import com.example.lamcagym.Entity.User;
 import com.example.lamcagym.Service.BookingService;
+import com.example.lamcagym.Service.SessionService;
+import com.example.lamcagym.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.time.LocalDate;
+import java.util.Date;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/bookings")
@@ -13,6 +21,10 @@ public class BookingController {
 
     @Autowired
     private BookingService bookingService;
+    @Autowired
+    UserService userService;
+    @Autowired
+    SessionService sessionService;
 
     // Hämta alla bokningar
     @GetMapping("/")
@@ -21,14 +33,34 @@ public class BookingController {
     }
 
     // Skapa en ny bokning
-    @PostMapping("/")
+    /*@PostMapping("/")
     public ResponseEntity<?> createBooking(@RequestBody Booking booking) {
         Booking createdBooking = bookingService.createBooking(booking);
         if(createdBooking != null) {
             return new ResponseEntity<>(createdBooking, HttpStatus.CREATED);
         }
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+    }*/
+    @PostMapping("/")
+    public ResponseEntity<?> createBooking(@RequestParam Integer sessionId) {
+        Session session = sessionService.getSession(sessionId);
+        //User user = userService.getUser(userId);
+
+        if (session != null) {
+            Booking booking = new Booking();
+            booking.setSession(session);
+            //booking.setUser(user);
+            // Spara andra attribut för bokningen om det behövs
+            Booking createdBooking = bookingService.createBooking(booking);
+
+            if (createdBooking != null) {
+                return ResponseEntity.ok(createdBooking);
+            }
+        }
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Failed to create booking");
     }
+
 
     // Hämta en specifik bokning med ID
     @GetMapping("/{id}")

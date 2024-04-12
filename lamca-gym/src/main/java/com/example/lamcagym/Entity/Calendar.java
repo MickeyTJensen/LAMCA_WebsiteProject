@@ -18,19 +18,15 @@ public class Calendar {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer calendarId;
 
-    @Column(name = "user_id")
-    private Integer userId;
-
-    @Column(name = "sessions_id")
-    private Integer sessionsId;
-
     @Column(name = "booking_time")
     private Date bookingTime;
 
-    public Calendar(Integer userId, Integer sessionsId, Date bookingTime) {
-        this.userId = userId;
-        this.sessionsId = sessionsId;
-        this.bookingTime = bookingTime;
-    }
-// Standard constructors, getters, and setters
+    // Many-to-one relation with User
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
+    @ManyToOne
+    @JoinColumn(name = "sessions_id", nullable = false)
+    private Session session;
+
 }
