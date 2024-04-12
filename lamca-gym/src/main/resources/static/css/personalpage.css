@@ -63,6 +63,18 @@ main {
   font-size: 24px;
 }
 
+/* Override default styles for the chatbot window */
+.bp-webchat-modal {
+    position: absolute;
+    bottom: 0;
+    height: 90% !important;
+    left: auto;
+    right: 0;
+    width: 400px;
+    z-index: 99999;
+}
+
+
 .profile-info input{
   border: 1px solid #1c1c1b;
   border-radius: 8px;

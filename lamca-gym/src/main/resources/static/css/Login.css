@@ -63,6 +63,19 @@ section {
   z-index: -1;
 }
 
+/* Override default styles for the chatbot window */
+.bp-webchat-modal {
+    position: absolute;
+    bottom: 0;
+    height: 90% !important;
+    left: auto;
+    right: 0;
+    width: 400px;
+    z-index: 99999;
+}
+
+
+
 .heading span {
   font-size: 3rem;
   color: #f09401;

@@ -64,6 +64,18 @@
   font-size: large; /* xx-large kan vara för stort beroende på din design */
 }
 
+
+/* Override default styles for the chatbot window */
+.bp-webchat-modal {
+    position: absolute;
+    bottom: 0;
+    height: 90% !important;
+    left: auto;
+    right: 0;
+    width: 400px;
+    z-index: 99999;
+}
+
 .video-overlay {
   position: fixed;
   top: 0;

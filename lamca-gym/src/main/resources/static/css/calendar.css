@@ -23,7 +23,18 @@
     max-width: 80%; /* Ange en maxbredd för att begränsa storleken på större skärmar */
     margin: 0 auto; /* Centrera innehållet horisontellt */
   }
-  
+
+  /* Override default styles for the chatbot window */
+  .bp-webchat-modal {
+      position: absolute;
+      bottom: 0;
+      height: 90% !important;
+      left: auto;
+      right: 0;
+      width: 400px;
+      z-index: 99999;
+  }
+
 
   .modal {
     display: none;
