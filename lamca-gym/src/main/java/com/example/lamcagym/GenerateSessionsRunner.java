@@ -2,8 +2,11 @@ package com.example.lamcagym;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
-
-import java.sql.*;
+import javax.sql.DataSource;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;import java.sql.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -13,48 +16,56 @@ import java.util.List;
 @Component
 public class GenerateSessionsRunner implements CommandLineRunner {
 
-    private static final String URL = "jdbc:mysql://localhost:3306/lamca_database";
-    private static final String USER = "root";
-    private static final String PASS = "C15tf78n";
+    private final DataSource dataSource;
 
+    public GenerateSessionsRunner(DataSource dataSource) {
+        this.dataSource = dataSource;
+    }
     @Override
     public void run(String... args) throws Exception {
-        clearPreviousSessions();
+        if (!sessionsExist()) {
         List<SessionEvent> events = Arrays.asList(
                 new SessionEvent("Yoga", LocalTime.of(7, 0), 90, 20, "Arta"),
                 new SessionEvent("Yoga", LocalTime.of(8, 30), 90, 20, "Arta"),
                 new SessionEvent("Yoga", LocalTime.of(10, 0), 90, 20, "Arta"),
-                new SessionEvent("Gruppträning", LocalTime.of(11, 30), 90, 20, "Arta"),
-                new SessionEvent("Gruppträning", LocalTime.of(13, 0), 90, 20, "Arta"),
-                new SessionEvent("Gruppträning", LocalTime.of(14, 30), 90, 20, "Arta"),
-                new SessionEvent("Yoga", LocalTime.of(16, 0), 90, 20, "Arta"),
-                new SessionEvent("Yoga", LocalTime.of(17, 30), 90, 20, "Arta"),
-                new SessionEvent("Spinning", LocalTime.of(19, 0), 90, 20, "Arta"),
-                new SessionEvent("Spinning", LocalTime.of(20, 30), 90, 20, "Arta")
+                new SessionEvent("Gruppträning", LocalTime.of(11, 30), 90, 20, "Lars"),
+                new SessionEvent("Gruppträning", LocalTime.of(13, 0), 90, 20, "Lars"),
+                new SessionEvent("Gruppträning", LocalTime.of(14, 30), 90, 20, "Mickey"),
+                new SessionEvent("Tabata", LocalTime.of(16, 0), 90, 20, "Anders"),
+                new SessionEvent("Tabata", LocalTime.of(17, 30), 90, 20, "Anders"),
+                new SessionEvent("Spinning", LocalTime.of(19, 0), 90, 20, "Chung"),
+                new SessionEvent("Spinning", LocalTime.of(20, 30), 90, 20, "Chung")
                 // Lägg till fler events här...
         );
 
         LocalDate startDate = LocalDate.now();
         LocalDate endDate = startDate.plusMonths(6);
 
-        try (Connection conn = DriverManager.getConnection(URL, USER, PASS)) {
-            for (LocalDate date = startDate; !date.isAfter(endDate); date = date.plusDays(1)) {
-                for (SessionEvent event : events) {
-                    insertEvent(conn, event, date);
+            try (Connection conn = dataSource.getConnection()) {
+                for (LocalDate date = startDate; !date.isAfter(endDate); date = date.plusDays(1)) {
+                    for (SessionEvent event : events) {
+                        insertEvent(conn, event, date);
+                    }
                 }
             }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+
+        } else {
+        System.out.println("Sessioner finns redan för den kommande 6 månaderna.");
     }
-    private void clearPreviousSessions() {
-        String sql = "DELETE FROM Sessions";
-        try (Connection conn = DriverManager.getConnection(URL, USER, PASS);
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
+}
+    private boolean sessionsExist() throws SQLException {
+        String checkSql = "SELECT COUNT(*) FROM Sessions WHERE date(time) BETWEEN ? AND ?";
+        LocalDate sixMonthsFromNow = LocalDate.now().plusMonths(6);
+        try (Connection conn = dataSource.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(checkSql)) {
+            stmt.setDate(1, java.sql.Date.valueOf(LocalDate.now()));
+            stmt.setDate(2, java.sql.Date.valueOf(sixMonthsFromNow));
+            ResultSet resultSet = stmt.executeQuery();
+            if (resultSet.next()) {
+                return resultSet.getInt(1) > 0;
+            }
         }
+        return false;
     }
 
     private void insertEvent(Connection conn, SessionEvent event, LocalDate date) throws SQLException {
