@@ -33,11 +33,15 @@ html::-webkit-scrollbar-thumb {
 }
 
 body {
-  height: 100vh;
-  margin: 0;
-  background: linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.9)), url('/frontend/images/bgd_logo_signup.jpg');
-  background-size: cover;
-  background-position: center;
+    display:
+    flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                height: 100vh;
+                background: linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.9)), url('images/bgd_logo_signup.jpg');
+                background-size: cover;
+                background-position: center;
 }
 
 section {
@@ -200,4 +204,8 @@ span:hover {
 .active-link {
   color: #f09401; /* Exempel: Gör den aktiva fliken orange */
   background-color: #f09401;
+}
+.error-message {
+    color: red;
+    margin-top: 5px;
 }

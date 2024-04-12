@@ -136,6 +136,7 @@ body {
   margin: 0; /* Justera efter behov */
 }
 
+<<<<<<< HEAD
 /* Override default styles for the chatbot window */
 .bp-webchat-modal {
     position: absolute;
@@ -147,6 +148,8 @@ body {
     z-index: 99999;
 }
 
+=======
+>>>>>>> Master
 
 
 
@@ -336,4 +339,7 @@ footer a:hover {
     font-size: 0.7rem; /* Minska även textstorleken för logo och navigeringslänkar */
   }
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> Master

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://thymeleaf.org" lang="en">
 
 <head>
     <meta charset="UTF-8">
@@ -14,15 +14,13 @@
 
     <!-- custom css file link  -->
     <link rel="stylesheet" href="css/template.css">
-    
     <link rel="stylesheet" href="css/membership.css">
 
 
 </head>
 
 <body>
-    <!-- LARS WAS HERE     -->
-
+  
     <!-- header section starts      -->
 
     <header class="header">
@@ -37,12 +35,21 @@
             <a href="ourgym.html">Our Gym</a>
             <a href="membership.html">Membership</a>
             <a href="trainer.html">Trainers</a>
-            <a href="login.html">Register Now / Log In</a>
+            <div id="welcomeUser" style="display: none;">
+                <a href="personalpage.html" id="personalPageLink">Welcome, </a>
+            </div>
+            <div id="logoutContainer" style="display: none;">
+                <a href="#" id="logoutLink">Logga ut</a>
+            </div>
+            <div id="loginRegisterLinks">
+                <a href="login.html" id="loginLink">Register Now / Log In</a>
+            </div>
         </nav>
         
     
 
     </header>
+
 
     <!-- header section ends     -->
     <div class="container Membership">
@@ -51,47 +58,46 @@
         <i class="fas fa-check"><p>Online training</p></i>
         <i class="fas fa-check"><p>Digital training start</p></i>
         <i class="fas fa-check"><p>Customized membership</p></i>
-            <div class="row boxes">
-                <div class="box">
-                    <h4>BASIC</h4>
-                    <UL>
-                        <LI>Fully equipped gym in bright premises with optional group training</LI>
-                        <LI>Digital training start with coach</LI>
-                        <LI>Access to the LAMCA App with over 280 online classes</LI>
-                        
-                    </UL>
+        <div class="row boxes">
+            <div class="box">
+                <h4>BASIC</h4>
+                <UL>
+                    <LI>Fully equipped gym in bright premises with optional group training</LI>
+                    <LI>Digital training start with coach</LI>
+                    <LI>Access to the LAMCA App with over 280 online classes</LI>
 
-                   <a href="login.html"><button class= "primaryButton">365 kr / mån</button></a>
-                </div>
-                <div class="box">
-                    <h4>ADVANCED</h4>
-                    <UL>
-                        <LI>Fully equipped gym in bright premises with optional group training</LI>
-                        <LI>Digital training start with coach</LI>
-                        <LI>Access to the LAMCA App with over 280 online classes</LI>
-                        <LI>Complimentary wellness consultations and personalized workout plans
-                        
-                    </UL>
+                </UL>
 
-                   <a href="login.html"><button class= "secondaryButton">450 kr / mån</button></a>
-                </div>
-                <div class="box">
-                    <h4>PREMIUM</h4>
-                    <UL>
-                        <LI>Fully equipped gym in bright premises with optional group training</LI>
-                        <LI>Digital training start with coach</LI>
-                        <LI>Personalized nutrition planning and support</LI>
-                        <LI>Unlimited group fitness classes</LI>
-                        <LI>Personalized nutrition planning and support</LI>
-                    </UL>
+                <a href="login.html"><button class= "primaryButton">365 kr / month</button></a>
+            </div>
+            <div class="box">
+                <h4>ADVANCED</h4>
+                <UL>
+                    <LI>Fully equipped gym in bright premises with optional group training</LI>
+                    <LI>Digital training start with coach</LI>
+                    <LI>Access to the LAMCA App with over 280 online classes</LI>
+                    <LI>Complimentary wellness consultations and personalized workout plans
 
-                   <a href="login.html"><button class= "primaryButton">550 kr / mån</button></a>
-                </div>
-                
-                
-            </div>   
+                </UL>
+
+                <a href="login.html"><button class= "primaryButton">450 kr / month</button></a>
+            </div>
+            <div class="box">
+                <h4>PREMIUM</h4>
+                <UL>
+                    <LI>Fully equipped gym in bright premises with optional group training</LI>
+                    <LI>Digital training start with coach</LI>
+                    <LI>Personalized nutrition planning and support</LI>
+                    <LI>Unlimited group fitness classes</LI>
+                    <LI>Personalized nutrition planning and support</LI>
+                </UL>
+
+                <a href="login.html"><button class= "primaryButton">550 kr / month</button></a>
+            </div>
+
+
         </div>
-  
+    </div>
 
 
 
@@ -99,7 +105,8 @@
 
 
 
-    <footer class="footer">
+
+    <footer class="footer menu">
         <div class="hours-grid">
             <h2>Opening hours</h2>
             <p class="monday">Monday: 07:00 - 23:00</p>
@@ -110,7 +117,7 @@
             <p class="saturday">Saturday: 07:00 - 23:00</p>
             <p class="sunday">Sunday: 07:00 - 23:00</p>
         </div>
-    
+
         <div class="location-grid">
             <h2>Where are we located?</h2>
             <p>Träningsgatan 1</p>
@@ -118,20 +125,49 @@
             <p>Halland, Sverige</p>
             <p>0701- 234 567</p>
         </div>
-    
-        <div>
-            <h2>LAMCA GYM</h2>
-            <p>About</p>
-            <p>Contact</p>
-            <p>Follow us!</p>
-            <p>Become a Partner</p>
+
+        <div class="about-grid">
+            <h2>Lamca Gym</h2>
+            <p><a href="who-are-we.html">Who Are We</a></p>
+            <p><a href="who-are-we.html#contactForm">Contact</a></p>
+            <p><a href="https://www.instagram.com/artarch4/" target="_blank">Follow us</a></p>
+            <p><a href="who-are-we.html">Become a partner</a></p>
         </div>
     </footer>
 
     <script src="script/Userlogin.js" defer></script>
+<<<<<<< HEAD
 
     <script src="https://cdn.botpress.cloud/webchat/v1/inject.js"></script>
     <script src="https://mediafiles.botpress.cloud/015530c3-be7c-4546-b954-f4d300002941/webchat/config.js" defer></script>
+=======
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const currentPath = window.location.pathname;
+
+            // Hämta alla navigationslänkar
+            const navLinks = document.querySelectorAll('.navbar a');
+
+            // Iterera över alla länkar
+            navLinks.forEach(link => {
+                // Ta bort 'active-link' från alla länkar
+                link.classList.remove('active-link'); // Ta bort punkten här
+
+                // Skapa en ny URL baserat på länkens href-attribut för att hantera relativa och absoluta URL:er korrekt
+                const linkPath = new URL(link.href, window.location.origin).pathname;
+
+                // Jämför länkens sökväg med den nuvarande sidans sökväg
+                // och markera länken som aktiv om de matchar
+                if (linkPath === currentPath) {
+                    link.classList.add('active-link'); // Ta bort punkten här också
+                }
+            });
+        });
+    </script>
+    <script src="https://cdn.botpress.cloud/webchat/v1/inject.js"></script>
+    <script src="https://mediafiles.botpress.cloud/015530c3-be7c-4546-b954-f4d300002941/webchat/config.js" defer></script>
+
+>>>>>>> Master
 </body>
 
 </html>

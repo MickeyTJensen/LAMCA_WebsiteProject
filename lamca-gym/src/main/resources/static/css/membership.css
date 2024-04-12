@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 @import url("https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;600&display=swap");
 
 * {
@@ -136,6 +137,8 @@ section {
   background: #f09401;
 }
 
+=======
+>>>>>>> Master
 
 .Membership {
   justify-content: center;
@@ -157,7 +160,7 @@ section {
 }
 
 .Membership p {
-  font-size: 16px; 
+  font-size: 16px;
   margin: 30px 0 30px 0;
   color: #fff;
   padding-left: 5px;
@@ -206,7 +209,6 @@ section {
   text-transform: uppercase;
 }
 
-
 .Membership .box  .primaryButton:hover {
   background-color: #fff;
   color:#f09401;
@@ -226,7 +228,6 @@ section {
   color: #fff;
   width: 100%;
 }
-
 
 .Membership .box  .secondaryButton:hover {
   background-color: #f09401;
@@ -248,8 +249,6 @@ section {
 .Membership .box li::marker {
   color: #f09401;
 }
-
-
 
 .row {
   display: flex;
@@ -281,83 +280,46 @@ img {
   color:#f09401;
 }
 
-.footer {
-  bottom: 0;
-  left: 0;
-  right: 0;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: flex-start;
-  -webkit-box-pack: justify;
-  -ms-flex-pack: justify;
-  justify-content: space-between;
-  padding: 5px 5% 0;
-  z-index: 10000;
-  background: #303030;
-  height: 130px;
+
+/* Responsive */
+@media only screen and (min-width: 768px) and (max-width: 1024px) {
+  .Membership {
+    padding: 110px 100px;
+    max-width: 2500px;
+  }
+
+  .Membership .boxes {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: stretch;
+  }
+  .Membership .box {
+    width: calc(48% - 10px);
+    margin-bottom: 20px;
+  }
 }
 
-.footer .logo {
-  font-weight: bolder;
-  color: #fff;
-  font-size: 3rem;
+/* Large Devices (Small Desktops/Laptops): Adjust styles for screens between 1025px and 1279px wide */
+@media only screen and (min-width: 1025px) and (max-width: 1279px) {
+  .Membership {
+    padding: 100px 150px;
+  }
 }
 
-.footer .logo span {
-  color: #f09401;
+/* Extra Large Devices (Large Desktops): Adjust styles for screens between 1280px and 1920px wide */
+@media only screen and (min-width: 1280px) and (max-width: 1920px) {
+  .Membership {
+     padding: 100px 200px;
+  }
 }
 
-.footer .navbar a {
-  display: inline-block;
-  padding: 1.5rem 2rem;
-  font-size: 1.7rem;
-  color: #fff;
+/* Ultra Large Devices: Adjust styles for screens wider than 1921px */
+@media only screen and (min-width: 1921px) {
+  .Membership {
+     padding: 100px 400px;
+  }
 }
-
-.footer .navbar a:hover {
-  background: #f09401;
-}
-
-.footer p{
-  color: #fff;
-  margin-top: 5px;
-}
-
-.footer h2{
-  text-align: center;
-  color: #f09401;
-  margin-top: auto;
-}
-
-.hours-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr); /* Delar upp i två kolumner */
-  grid-template-rows: auto; /* Rader baserat på innehållets storlek */
-  grid-gap: 5px; /* Utrymme mellan grid-element */
-  text-align: left; /* Centrerar texten */
-}
-
-h2 {
-  grid-column: 1 / -1; /* Sträcker sig över båda kolumnerna */
-}
-
-.monday, .tuesday, .wednesday {
-  justify-self: start; /* Justerar dessa dagar till vänster */
-}
-
-.thursday, .friday, .saturday {
-  justify-self: left; /* Justerar dessa dagar till höger */
-}
-
-.sunday {
-  grid-column: 1 / -1; /* Centrerar söndagen under båda kolumnerna */
-  justify-self: center; /* Centrerar texten */
-}
-
-.location-grid{
-  text-align: center;
-  display: grid;
+.active-link {
+  color: #f09401; /* Exempel: Gör den aktiva fliken orange */
+  background-color: #f09401;
 }

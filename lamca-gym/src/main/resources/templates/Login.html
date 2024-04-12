@@ -15,7 +15,7 @@
             align-items: center;
             justify-content: center;
             height: 100vh;
-            background: linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.9)), url('/frontend/images/bgd_logo_signup.jpg');
+            background: linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.9)), url('/images/bgd_logo_signup.jpg');
             background-size: cover;
             background-position: center;
         }
@@ -79,10 +79,11 @@
             <input type="text" id="loginEmail" name="email" placeholder="Email" style="color: black;">
             <input type="password" id="loginPassword" name="password" placeholder="Password" style="color: black;">
             <div><button type="submit">Log In</button></div>
-            <p th:text="${message}"></p>
+            <div id="loginMessage"></div>
             <p>Not a member? <span id="toggleToSignup" style="color: #f09401; cursor: pointer;">create account</span></p>
         </form>
     </div>
+<<<<<<< HEAD
     <script>
         document.addEventListener('DOMContentLoaded', () => {
         // Hämta sökvägsdelen av den nuvarande sidans URL
@@ -120,5 +121,8 @@
     <script src="https://mediafiles.botpress.cloud/015530c3-be7c-4546-b954-f4d300002941/webchat/config.js" defer></script>
 
 
+=======
+    <script th:src="@{/script/Login.js}" defer></script>
+>>>>>>> Master
 </body>
 </html>

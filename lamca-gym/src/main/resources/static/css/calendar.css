@@ -16,7 +16,7 @@
   .calendar-container {
     max-height: calc(100vh - 100px - 105px);
     overflow-y: auto; /* Aktiverar scrollning inom denna container */
-  } 
+  }
 
   .event-info {
     width: 90%; /* Använd procent för att göra bredden relativ till förälderelementet */
@@ -24,6 +24,7 @@
     margin: 0 auto; /* Centrera innehållet horisontellt */
   }
 
+<<<<<<< HEAD
   /* Override default styles for the chatbot window */
   .bp-webchat-modal {
       position: absolute;
@@ -35,6 +36,8 @@
       z-index: 99999;
   }
 
+=======
+>>>>>>> Master
 
   .modal {
     display: none;
@@ -56,7 +59,7 @@
     border: 2px solid #222222;
     width: 30%;
     border-radius: 5px;
-    box-shadow: 0px 4px 8px rgba(5, 5, 5, 0.8); 
+    box-shadow: 0px 4px 8px rgba(5, 5, 5, 0.8);
     margin-left: 20%;
   }
 
@@ -86,23 +89,23 @@
 
   #modal-content #bookBtn,
   #modal-content #cancelBtn {
-    font-size: 24px; 
-    padding: 10px 20px; 
-    background-color: #454444; 
-    color: #f09401; 
-    border: none; 
-    border-radius: 5px; 
-    cursor: pointer; 
+    font-size: 24px;
+    padding: 10px 20px;
+    background-color: #454444;
+    color: #f09401;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
     margin-left: 20%;
   }
 
   #modal-content #bookBtn:hover{
-    opacity: 0.8; 
+    opacity: 0.8;
     background-color:#014d14;
   }
 
   #modal-content #cancelBtn:hover {
-    opacity: 0.8; 
+    opacity: 0.8;
     background-color: rgb(134, 0, 0)
   }
 
@@ -137,26 +140,29 @@
   .full {
     background-color: #930101 !important; /* Röd */
   }
-  
+
   .available {
     background-color: #019401 !important; /* Grön */
   }
-  
+
+  .booked {
+    background-color: #0000ff !important; /* Blå */
+  }
+
   .fc-event-title {
-    font-size: 14px; /* Justera storleken */
+    font-size: 20px; /* Justera storleken */
     text-align: center; /* Centrerar texten */
     width: 100%; /* Säkerställer att titeln kan centreras i hela bredden */
   }
-  
+
   .fc-event-custom {
     display: flex;
     flex-direction: column;
     justify-content: center; /* Centrerar innehållet vertikalt */
     height: 100%; /* Använd full höjd för att möjliggöra vertikal centrering */
   }
-  
+
   /* Justera storleken på andra element */
   .fc-event-instructor, .fc-event-booked, .fc-event-time, .fc-event-id {
-    font-size: 12px; /* Exempel på mindre textstorlek */
+    font-size: 14px; /* Exempel på mindre textstorlek */
   }
-  

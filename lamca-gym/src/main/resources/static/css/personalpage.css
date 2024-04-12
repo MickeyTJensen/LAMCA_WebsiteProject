@@ -1,7 +1,7 @@
 main {
   display: flex;
-  justify-content: flex-start;
-  align-items: flex-start;
+  justify-content: center; /* Centrerar horisontellt */
+  align-items: center; /* Centrerar vertikalt */
 }
 
 
@@ -16,12 +16,13 @@ main {
   display: flex;
   flex-direction: column;
   align-items: center; /* Centrerar innehållet horisontellt */
-  margin-top: 65px;
-  height: 1500px;
-  max-height: calc(100vh - 100px - 105px);
+  justify-content: center; /* Centrerar vertikalt */
+  height: auto; /* Använder auto för att höjden ska bestämmas av innehållet */
+  max-height: calc(100vh - 100px); /* Justerar max-höjden till skärmens höjd minus andra element */
   margin-left: auto;
   margin-right: auto;
 }
+
 
 /* Specifika stilar för profilbilden */
 .profile-picture img {

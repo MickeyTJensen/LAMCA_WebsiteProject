@@ -1,18 +1,6 @@
-@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;600&display=swap");
 
-* {
-  font-family: 'Nunito', sans-serif;
-  margin: 0;
-  padding: 0;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-  text-decoration: none;
-  outline: none;
-  border: none;
-  -webkit-transition: all .2s linear;
-  transition: all .2s linear;
-}
 
+<<<<<<< HEAD
 .active-link {
   color: #f09401; /* Exempel: Gör den aktiva fliken orange */
   background-color: #f09401;
@@ -142,169 +130,220 @@ section {
 }
 
 .ourGym {
+=======
+.whoAreWe {
+>>>>>>> Master
   justify-content: center;
   align-items: center;
   /*height: 100vh; /* Använder hela vyhöjden för att centrera innehållet vertikalt (ändrat vh för att ha mer margin-bottom)*/
-  padding: 100px 100px; /* Lägg till toppmarginal om headern döljer innehållet */
+  padding: 100px 200px; /* Lägg till toppmarginal om headern döljer innehållet */
   color: white; /* Vit textfärg */
   text-align: center;
   font-size: xx-large;
-  flex-wrap: wrap;
 }
 
-.ourGym p {
-  font-size: 16px; 
+.whoAreWe p {
+  font-size: 16px;
   margin: 30px 0 30px 0;
 }
 
-.ourGym img { 
-  object-fit: cover;
-  max-width: 100%;
-}
-
-.ourGym .boxes {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  flex-wrap: wrap;
-}
-
-.ourGym .box h4{
-  font-size: 26px; 
-  text-align: left;
-  text-transform: capitalize;
-  padding-top: 10px;
-}
-
-.ourGym .box p{
-  font-size: 15px; 
-  text-align: left;
-  margin-top: 4px!important;
-  color: #b1b2b3;
-}
-
-.ourGym .box {
+.whoAreWe .moto {
+  font-size: 35px;
   background: #1e1e1e;
-  padding: 20px;
-  border-radius: 20px;
-  box-sizing: border-box;
-  width: calc(33.33% - 20px);
-  margin: 10px;
-  float: left;
+  padding: 80px 60px;
+  border-radius: 15px;
 }
 
-.ourGym .box .primaryButton {
-  background-color: #f09401;
-  padding: 12px 28px;
-  margin-top: 160px;
-  font-size: 15px;
-  border-radius: 8px;
-  font-weight: 600;
-  box-sizing: border-box;
+.whoAreWe .moto span .gym {
+  color:#fff!important;
+ }
+
+
+.whoAreWe .moto span {
+ color:#f09401;
 }
 
-.ourGym .box  .primaryButton:hover {
-  background-color: #fff;
-  color:#f09401;
-  cursor: pointer;
+.whoAreWe img {
+  object-fit: cover;
+  width: 100%;
 }
-
 
 .row {
   display: flex;
+  flex: 1;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: space-between!important;
+  column-gap: 25px;
 }
+
 .row img {
   object-fit: cover;
   border-radius: 15px;
+  width: 50%;
+  height: 270px;
 }
+
 img {
   border-radius: 15px;
-}
-.ourGym video {
-  width: 97%;
-  max-width: 100%;
-  border-radius: 25px!important;
+   width: 100%;
 }
 
-.footer {
-  bottom: 0;
-  left: 0;
-  right: 0;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: flex-start;
-  -webkit-box-pack: justify;
-  -ms-flex-pack: justify;
-  justify-content: space-between;
-  padding: 5px 5% 0;
-  z-index: 10000;
-  background: #303030;
-  height: 130px;
+
+
+.contact-form {
+  padding: 40px 40px;
+  justify-content: center;
+  align-items: center;
+  background:#1e1e1e;
+  border-radius: 10px;
+  text-align: center;
+  margin-top: 40px!important;
 }
 
-.footer .logo {
-  font-weight: bolder;
+.contact-form h2 {
   color: #fff;
-  font-size: 3rem;
+  text-align: center;
+  font-size: xx-large;
 }
 
-.footer .logo span {
+.contact-form p {
+  color: #ccc;
+  font-size: 16px;
+  margin-top: 10px;
+}
+
+form {
+  margin-top: 20px;
+}
+
+label {
+  display: block;
+  margin-bottom: 10px;
+  color: #999;
+  text-align: left!important;
+  font-size: 14px;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+textarea {
+  width: 100%!important;
+  height: 48px;
+  background-color: #2e2e2e;
+  border: 1px solid #444444;
+  color: #fff;
+  padding: 10px;
+  margin-bottom: 20px;
+  box-sizing: border-box;
+  border-radius:5px;
+}
+
+textarea {
+  width: 100%;
+  height: 200px;
+  resize: none;
+}
+
+input[type="submit"] {
+  height: 48px;
+  padding: 10px 30px;
+  background-color: #f09401;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  border-radius: 5px;
+}
+
+input[type="submit"]:hover {
+  background-color: #fff;
   color: #f09401;
 }
 
-.footer .navbar a {
-  display: inline-block;
-  padding: 1.5rem 2rem;
-  font-size: 1.7rem;
+input:active, textarea:active {
+  background: #3d3d3d;
+}
+
+input:focus, textarea:focus {
+  border: 1px solid #f0f1f2;
+}
+
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes grow {
+  from { transform: scale(1); }
+  to { transform: scale(1.05); }
+}
+
+.whoAreWe .moto {
+  font-size: 35px;
+  background: #1e1e1e;
+  padding: 80px 60px;
+  border-radius: 15px;
+  animation: fadeIn 2s ease-in-out, grow 3s infinite alternate;
   color: #fff;
+  }
+
+/* Responsive Styles */
+@media only screen and (max-width: 768px) {
+  input[type="text"],
+  input[type="email"],
+  input[type="tel"],
+  select {
+    width: 100%;
+  }
 }
 
-.footer .navbar a:hover {
-  background: #f09401;
+/* Responsive */
+
+/* Medium Devices (Tablets): Adjust styles for screens between 768px and 1024px wide */
+@media only screen and (min-width: 768px) and (max-width: 1024px) {
+  .whoAreWe {
+    padding: 110px 40px;
+  }
+
+  .whoAreWe .moto {
+    font-size: 30px;
+    background: #1e1e1e;
+    padding: 60px 40px;
+    border-radius: 15px;
+  }
+
+  .row {
+   column-gap: 30px!important;
+  }
+
+  .contact-form {
+    margin: 100px 40px;
+  }
 }
 
-.footer p{
-  color: #fff;
-  margin-top: 5px;
+/* Large Devices (Small Desktops/Laptops): Adjust styles for screens between 1025px and 1279px wide */
+@media only screen and (min-width: 1025px) and (max-width: 1279px) {
+  .whoAreWe {
+    padding: 100px 150px;
+  }
 }
 
-.footer h2{
-  text-align: center;
-  color: #f09401;
-  margin-top: auto;
+/* Extra Large Devices (Large Desktops): Adjust styles for screens between 1280px and 1920px wide */
+@media only screen and (min-width: 1280px) and (max-width: 1920px) {
+  .whoAreWe {
+    padding: 100px 200px;
+  }
 }
 
-.hours-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr); /* Delar upp i två kolumner */
-  grid-template-rows: auto; /* Rader baserat på innehållets storlek */
-  grid-gap: 5px; /* Utrymme mellan grid-element */
-  text-align: left; /* Centrerar texten */
+/* Ultra Large Devices: Adjust styles for screens wider than 1921px */
+@media only screen and (min-width: 1921px) {
+  .whoAreWe {
+    padding: 100px 400px;
+  }
 }
-
-h2 {
-  grid-column: 1 / -1; /* Sträcker sig över båda kolumnerna */
-}
-
-.monday, .tuesday, .wednesday {
-  justify-self: start; /* Justerar dessa dagar till vänster */
-}
-
-.thursday, .friday, .saturday {
-  justify-self: left; /* Justerar dessa dagar till höger */
-}
-
-.sunday {
-  grid-column: 1 / -1; /* Centrerar söndagen under båda kolumnerna */
-  justify-self: center; /* Centrerar texten */
-}
-
-.location-grid{
-  text-align: center;
-  display: grid;
+.active-link {
+  color: #f09401; /* Exempel: Gör den aktiva fliken orange */
+  background-color: #f09401;
 }
