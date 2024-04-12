@@ -34,9 +34,15 @@
             <a href="ourgym.html">Our Gym</a>
             <a href="membership.html">Membership</a>
             <a href="trainer.html">Trainers</a>
-            <a href="personalpage.html" id="personalPageLink" style="display: none;">Personal Page</a>
-            <a href="#" id="logoutLink" style="display: none;">Logga ut</a>
-            <a href="login.html" id="loginLink">Register Now / Log In</a>
+            <div id="welcomeUser" style="display: none;">
+                <a href="personalpage.html" id="personalPageLink">Welcome, </a>
+            </div>
+            <div id="logoutContainer" style="display: none;">
+                <a href="#" id="logoutLink">Logga ut</a>
+            </div>
+            <div id="loginRegisterLinks">
+                <a href="login.html" id="loginLink">Register Now / Log In</a>
+            </div>
         </nav>
         
     
@@ -128,6 +134,7 @@
         </div>
     </footer>
 
+    <script src="script/Userlogin.js" defer></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const currentPath = window.location.pathname;
@@ -151,6 +158,9 @@
             });
         });
     </script>
+    <script src="https://cdn.botpress.cloud/webchat/v1/inject.js"></script>
+    <script src="https://mediafiles.botpress.cloud/015530c3-be7c-4546-b954-f4d300002941/webchat/config.js" defer></script>
+
 </body>
 
 </html>

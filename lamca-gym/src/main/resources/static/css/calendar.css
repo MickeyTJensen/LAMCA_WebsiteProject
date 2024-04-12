@@ -131,8 +131,12 @@
     background-color: #019401 !important; /* Grön */
   }
 
+  .booked {
+    background-color: #0000ff !important; /* Blå */
+  }
+
   .fc-event-title {
-    font-size: 14px; /* Justera storleken */
+    font-size: 20px; /* Justera storleken */
     text-align: center; /* Centrerar texten */
     width: 100%; /* Säkerställer att titeln kan centreras i hela bredden */
   }
@@ -146,6 +150,5 @@
 
   /* Justera storleken på andra element */
   .fc-event-instructor, .fc-event-booked, .fc-event-time, .fc-event-id {
-    font-size: 12px; /* Exempel på mindre textstorlek */
+    font-size: 14px; /* Exempel på mindre textstorlek */
   }
-

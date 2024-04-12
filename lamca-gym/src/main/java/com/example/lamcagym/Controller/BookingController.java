@@ -1,5 +1,6 @@
 package com.example.lamcagym.Controller;
 
+import com.example.lamcagym.BookingRequest;
 import com.example.lamcagym.Entity.Booking;
 import com.example.lamcagym.Service.BookingService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,14 +22,11 @@ public class BookingController {
     }
 
     // Skapa en ny bokning
-    @PostMapping("/")
-    public ResponseEntity<?> createBooking(@RequestBody Booking booking) {
-        Booking createdBooking = bookingService.createBooking(booking);
-        if(createdBooking != null) {
-            return new ResponseEntity<>(createdBooking, HttpStatus.CREATED);
-        }
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+    @PostMapping("/book")
+    public ResponseEntity<?> createBooking(@RequestBody BookingRequest bookingRequest) {
+        return bookingService.createBooking(bookingRequest);
     }
+
 
     // Hämta en specifik bokning med ID
     @GetMapping("/{id}")
