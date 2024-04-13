@@ -1,6 +1,8 @@
 package com.example.lamcagym.Controller;
 
 import com.example.lamcagym.Entity.User;
+import com.example.lamcagym.LoginRequest;
+import com.example.lamcagym.RegisterRequest;
 import com.example.lamcagym.Service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,6 +11,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/user")
@@ -27,17 +31,19 @@ public class UserController {
         return (ArrayList<User>) userService.getAll();
     }
 
-    @GetMapping("/")
-    public ResponseEntity<User> userGetById(@RequestParam int id) {
+    @GetMapping("/{id}")
+    public ResponseEntity<User> userGetById(@PathVariable int id) {
         logger.info("Requested user by ID: {}", id);
         User user = userService.getUser(id);
         if (user != null) {
             logger.info("User with ID: {} found.", id);
             return ResponseEntity.status(HttpStatus.OK).body(user);
+        } else {
+            logger.warn("User with ID: {} not found.", id);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
-        logger.warn("User with ID: {} not found.", id);
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
     }
+
 
     @PostMapping("/")
     public ResponseEntity<?> createUser(
@@ -57,22 +63,45 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Failed to save.");
     }
     @PostMapping("/login")
-    public ResponseEntity<?> loginRequest(String email, String password){
+    public ResponseEntity<?> loginRequest(@RequestBody Map<String, String> loginDetails){
+        String email = loginDetails.get("email");
+        String password = loginDetails.get("password");
         User user = userService.getUserByEmail(email);
         if(user != null && user.getPassword().equals(password)){
             logger.info(user.getName() + " Successfully login");
-            return ResponseEntity.status(HttpStatus.OK).body("Successfully login");
+            // Använd ett Map-objekt för att skapa ett JSON-svar
+            Map<String, String> response = new HashMap<>();
+            response.put("message", "Successfully login");
+            response.put("userId", user.getUserId().toString());
+            response.put("name", user.getName());
+            return ResponseEntity.ok().body(response);
         }
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User doesn't exists");
+        Map<String, String> response = new HashMap<>();
+        response.put("message", "User doesn't exists");
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
     }
+
+
     @PostMapping("/register")
-    public ResponseEntity<?> registerUser(String name, String email, String phoneNumber, String password){
-        User newUser = new User(name,email,phoneNumber,password);
-        boolean success = userService.createUser(newUser);
-        if(success){
-            return ResponseEntity.status(HttpStatus.CREATED).body(newUser);
+    public ResponseEntity<?> registerUser(@RequestBody RegisterRequest registerRequest){
+        // Kontrollera först om användaren redan existerar med den angivna e-postadressen
+        if(userService.existsByEmail(registerRequest.getEmail())) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Email already in use.");
         }
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Failure");
+
+        User newUser = new User(
+                registerRequest.getName(),
+                registerRequest.getEmail(),
+                registerRequest.getPhoneNumber(),
+                registerRequest.getPassword()
+        );
+
+        boolean success = userService.createUser(newUser);
+        if(success) {
+            return ResponseEntity.status(HttpStatus.CREATED).body("User successfully created.");
+        } else {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to create user.");
+        }
     }
     @DeleteMapping("/")
     public ResponseEntity<?> deleteUser(@RequestParam int id) {
@@ -87,22 +116,17 @@ public class UserController {
         }
     }
 
-    @PutMapping("/")
-    public ResponseEntity<?> updateUser(
-            @RequestParam int id,
-            @RequestParam String name,
-            @RequestParam String email,
-            @RequestParam("phone_number") String phoneNumber,
-            @RequestParam String password) {
-
+    @PutMapping("/updateUser/{id}")
+    public ResponseEntity<?> updateUser(@PathVariable Integer id, @RequestBody User userDetails) {
         logger.info("Attempting to update user with ID: {}", id);
-        User user = userService.getUser(id);
-        if (user != null) {
-            user.setName(name);
-            user.setEmail(email);
-            user.setPhoneNumber(phoneNumber);
-            user.setPassword(password);
-            boolean success = userService.updateUser(user);
+        User existingUser = userService.getUser(id); // Antag att getUserById är en metod som hämtar användare baserat på ID
+        if (existingUser != null) {
+            existingUser.setName(userDetails.getName());
+            existingUser.setEmail(userDetails.getEmail());
+            existingUser.setPhoneNumber(userDetails.getPhoneNumber());
+            existingUser.setPassword(userDetails.getPassword());
+
+            boolean success = userService.updateUser(existingUser); // Antag att updateUser sparar de ändrade detaljerna
             if (success) {
                 logger.info("User with ID: {} successfully updated.", id);
                 return ResponseEntity.ok().body("User with ID: " + id + " successfully updated.");
@@ -110,9 +134,10 @@ public class UserController {
                 logger.warn("Could not update user with ID: {}.", id);
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Could not update user with ID: " + id);
             }
+        } else {
+            logger.warn("User with ID: {} not found.", id);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User with ID: " + id + " not found.");
         }
-        logger.warn("User with ID: {} not found.", id);
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User with ID: " + id + " not found.");
     }
 }
 

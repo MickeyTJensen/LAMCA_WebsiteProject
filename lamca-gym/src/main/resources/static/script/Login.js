@@ -17,104 +17,89 @@ document.addEventListener('DOMContentLoaded', function() {
         const password = document.getElementById('loginPassword').value;
         await loginUser(email, password);
     });
+})
 
-    // Hantera registrering
-    document.getElementById('signupForm').addEventListener('submit', async function(event) {
-        event.preventDefault();
-        const email = document.getElementById('signupEmail').value;
-        const password = document.getElementById('signupPassword').value;
-        const fullName = document.getElementById('signupFullName').value;
-        
-        if (isValidPassword(password)) {
-            await registerUser(email, password, fullName);
-        } else {
-            alert('Lösenordet måste innehålla minst 5 tecken, inklusive en stor bokstav och en siffra.');
-            document.getElementById('signupPassword').value = ''; // Rensar lösenordsfältet
-        }
-    });
+document.getElementById('loginForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+    const email = document.getElementById('loginEmail').value;
+    const password = document.getElementById('loginPassword').value;
+
+    loginUser(email, password);
 });
 
-function loginUser() {
-    var email = document.getElementById("loginEmail").value;
-    var password = document.getElementById("loginPassword").value;
-
-    // Skicka en förfrågan till din backend för att kontrollera inloggningen
-    fetch('login', {
+function loginUser(email, password) {
+    fetch('/user/login', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ email: email, password: password })
+        body: JSON.stringify({ email, password })
     })
     .then(response => {
         if (!response.ok) {
-            throw new Error('Invalid login credentials');
+            throw new Error('Login failed');
         }
-        return response.text(); // Hämta texten från svaret
+        return response.json();
     })
     .then(data => {
-        console.log(data); // Logga svaret från servern
-        // Om inloggningen är framgångsrik, omdirigera till dashboard-sidan
-        window.location.href = "personalpage.html";
-    })
-    .catch(error => {
-        console.error('Error logging in:', error);
-        // Visa felmeddelande på sidan om inloggningen misslyckades
-        document.getElementById("message").innerText = "Invalid email or password";
-    });
-}
-/*
-async function loginUser(email, password) {
-    try {
-        const loginUrl = 'http://localhost:8080/login'; // Ändra till din Spring Boot-apps URL
-        const loginData = { email, password };
-
-        const response = await fetch(loginUrl, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(loginData)
+    console.log(data);
+            localStorage.setItem('userToken', data.token);
+            console.log("Sätter userId i localStorage:", data.userId);
+            localStorage.setItem('userId', data.userId);
+            localStorage.setItem('userName', data.name);
+            alert('Login lyckades! Du kommer nu att omdirigeras.');
+            window.location.href = "/personalpage.html";
+        })
+        .catch(error => {
+            console.error('Login error:', error);
+            const loginMessageElement = document.getElementById("loginMessage");
+            if (loginMessageElement) {
+                // Använder serverns felmeddelande om tillgängligt
+                loginMessageElement.innerText = error || "Invalid email or password";
+            } else {
+                console.error('Login message element not found');
+            }
         });
-
-        if (response.ok) {
-            alert('Inloggning lyckades!');
-            const data = await response.json();
-            localStorage.setItem('userToken', data.token); // Spara token, antar att backend svarar med en token
-            window.location.href = 'personalpage.html'; // Eller vart du nu vill dirigera användaren
-        } else {
-            alert('Inloggning misslyckades.');
-        }
-    } catch (error) {
-        console.error('Login error:', error);
-        alert('Ett fel inträffade vid inloggning.');
-    }*/
-async function registerUser(email, password, fullName) {
-    try {
-        const registerUrl = 'http://localhost:8080/register'; // Ändra till din Spring Boot-apps URL
-        const registerData = { email, password, fullName };
-
-        const response = await fetch(registerUrl, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(registerData)
-        });
-
-        const data = await response.json();
-        if (response.ok) {
-            alert('Registrering lyckades! Du kan nu logga in.');
-            window.location.href = '/frontend/personalpage.html';
-        } else {
-            alert(data.message || 'Registrering misslyckades');
-            // Rensa formulärfält vid fel
-        }
-    } catch (error) {
-        console.error('Registration error:', error);
-        alert('Ett fel inträffade vid registrering.');
     }
-}
-
-function isValidPassword(password) {
-    return /^(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{5,}$/.test(password);
-}
 
 
+    // Hantera registrering
+    document.getElementById('signupForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+        const name = document.getElementById('signupFullName').value; // Bytt variabelnamn från fullName till name för att matcha serverns förväntan
+        const email = document.getElementById('signupEmail').value;
+        const password = document.getElementById('signupPassword').value;
+        const phoneNumber = document.getElementById('signupPhoneNumber').value; // Anta att du har ett fält med ID 'signupPhoneNumber'
+
+        registerUser(name, email, phoneNumber, password);
+    });
+
+    async function registerUser(name, email, phoneNumber, password) {
+        const registerUrl = 'http://localhost:8080/user/register'; // Säkerställ att detta är korrekt URL
+        const registerData = {
+            name,
+            email,
+            phoneNumber,
+            password
+        };
+
+        try {
+            const response = await fetch(registerUrl, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(registerData)
+            });
+
+            if (!response.ok) {
+                const data = await response.json();
+                alert(data.message || 'Registrering misslyckades, försök igen.');
+            } else {
+                alert('Registrering lyckades! Du kan nu logga in.');
+                window.location.href = '/personalpage.html';
+            }
+        } catch (error) {
+            console.error('Registration error:', error);
+            alert('Ett fel inträffade vid registrering.');
+        }
+    }
 

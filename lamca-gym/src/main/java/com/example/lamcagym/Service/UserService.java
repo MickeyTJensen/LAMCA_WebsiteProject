@@ -11,16 +11,10 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
+
     public boolean createUser(User user) {
-        // Skapa en ny rad i databasen med save().
-        // Det returnerar det nyligen skapade objektet i databasen, vilket kan
-        // användas för att kontrollera vilket id som just genererats för objektet.
-        User newUser = userRepository.save(user);
-
-        // Eftersom vi använder Lombok och har bytt till camelCase i Java-koden,
-        // uppdatera så att den använder getUserId() istället.
-        System.out.println("Got id " + newUser.getUserId() + "!");
-
+        // Här sparar du bara lösenordet som det är, utan att hash:a det.
+        userRepository.save(user);
         return true;
     }
 
@@ -55,6 +49,11 @@ public class UserService {
         // Om användaren inte finns, returnera false
         return false;
     }
+
+    public boolean existsByEmail(String email) {
+        return userRepository.existsByEmail(email);
+    }
+
 
     public ArrayList<User> getAll() {
         return (ArrayList<User>) userRepository.findAll();
