@@ -174,11 +174,14 @@
     });
 </script>
 
+    /* Detta är koden från Botpress för att implementera "the Configurable code" */
+    /* Detta möjliggör att ändra och bestämma var chatbotfönstret skall vara samt dess storlek. */
+
     <script src="https://cdn.botpress.cloud/webchat/v1/inject.js"></script>
     <script>
         window.botpressWebChat.init({
             "composerPlaceholder": "Chat with LAMCA-Gym",
-            "botConversationDescription": "Welcome to Lamca-Gym AI Chatbot!",
+            "botConversationDescription": "Welcome to Lamca-Gym!",
             "botId": "015530c3-be7c-4546-b954-f4d300002941",
             "hostUrl": "https://cdn.botpress.cloud/webchat/v1",
             "messagingUrl": "https://messaging.botpress.cloud",
@@ -187,7 +190,7 @@
             "lazySocket": true,
             "themeName": "prism",
             "botName": "LAMCA-Gym",
-            "stylesheet": "src/main/resources/static/css/template.css",
+            "stylesheet": "src/main/resources/static/css/inject.css",
             "frontendVersion": "v1",
             "useSessionStorage": true,
             "showBotInfoPage": true,
@@ -197,6 +200,8 @@
     </script>
 
     <link rel="stylesheet" href="css/inject.css">
+
+    /* Slut på koden för Botpress */
     
 </body>
 

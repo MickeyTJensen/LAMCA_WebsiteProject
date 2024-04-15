@@ -160,6 +160,11 @@
             });
         });
     </script>
+
+
+    /* Detta är koden från Botpress för att implementera "the Configurable code" */
+    /* Detta möjliggör att ändra och bestämma var chatbotfönstret skall vara samt dess storlek. */
+
     <script src="https://cdn.botpress.cloud/webchat/v1/inject.js"></script>
     <script>
         window.botpressWebChat.init({
@@ -173,7 +178,7 @@
             "lazySocket": true,
             "themeName": "prism",
             "botName": "LAMCA-Gym",
-            "stylesheet": "src/main/resources/static/css/template.css",
+            "stylesheet": "src/main/resources/static/css/inject.css",
             "frontendVersion": "v1",
             "useSessionStorage": true,
             "showBotInfoPage": true,
@@ -183,6 +188,8 @@
     </script>
 
     <link rel="stylesheet" href="css/inject.css">
+
+    /* Slut på koden för Botpress */
 
 
 </body>
