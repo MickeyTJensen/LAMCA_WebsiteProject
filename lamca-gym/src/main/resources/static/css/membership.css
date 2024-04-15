@@ -32,19 +32,22 @@
   justify-items: center;
   align-content: center;
   flex-wrap: wrap;
+
 }
 
-.Membership .box h4{
-  font-size: 26px; 
+.Membership .box h4 {
+  font-size: 26px;
   text-align: left;
-  text-transform: capitalize;
+  text-transform: none; /* Changed from capitalize to none */
   padding-top: 10px;
 }
+
 
 .Membership .box p{
   font-size: 15px; 
   text-align: left;
   margin-top: 4px!important;
+  text-transform: none !important;
 }
 
 .Membership .box {
@@ -55,6 +58,7 @@
   width: 570px;
   margin: 10px;
   float: left;
+  text-transform: none !important;
 }
 
 .Membership .box .primaryButton {
@@ -103,6 +107,11 @@
   text-align: left;
   padding-top: 7px;
   color: #b1b2b3;
+  text-transform: none;
+}
+
+.box li {
+  text-transform: none;  /* This will ensure list items are not automatically capitalized */
 }
 
 .Membership .box li::marker {

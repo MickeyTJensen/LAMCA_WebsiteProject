@@ -6,32 +6,35 @@
           .then(sessions => {
               const events = sessions.map(session => {
                   return {
-                      id: session.sessionId, // Antag att din backend använder 'sessionId' som fält
-                      title: session.sessionType, // Anpassa enligt ditt datamodell, kanske 'sessionType'
-                      start: session.time, // Formatet måste matcha ISO 8601, t.ex. "2020-09-01T12:00:00"
-                      end: calculateEndTime(session.time, session.duration), // Du behöver beräkna slutet baserat på starttid och varaktighet
+                      id: session.sessionId,
+                      title: session.sessionType,
+                      start: session.time,
+                      end: calculateEndTime(session.time, session.duration),
                       instructor: session.instructor,
                       capacity: session.capacity,
+                      booked: session.booked,  // Antal bokade platser
+                      isUserBooked: session.isUserBooked  // Boolean värde om användaren har bokat
                   };
               });
-              successCallback(events); // Använd successCallback för att skicka eventen till kalendern
+              successCallback(events);
           })
           .catch(error => {
               console.error('Error fetching sessions:', error);
-              failureCallback(error); // Använd failureCallback vid fel
+              failureCallback(error);
           });
   }
 
-  function calculateEndTime(startTime, duration) {
-      // Antag att 'duration' är i minuter och 'startTime' är en sträng i ISO 8601-format
-      let start = new Date(startTime);
-      return new Date(start.getTime() + duration * 60000).toISOString(); // Lägg till 'duration' i minuter till starttiden
-  }
 
   function bookSession(sessionId) {
       const userId = localStorage.getItem('userId');
       if (!userId) {
           alert("Du måste vara inloggad för att boka en session.");
+          return;
+      }
+
+      const currentSession = calendar.getEventById(sessionId);  // Antag att du kan få tag på event-objektet
+      if (currentSession.extendedProps.isUserBooked) {
+          alert("Du har redan bokat detta pass.");
           return;
       }
 
@@ -42,32 +45,31 @@
       })
       .then(response => {
           if (!response.ok) {
-              // Hanterar serverfel (t.ex. 400 eller 500 felstatus)
               throw new Error(`Server returned status: ${response.status}`);
           }
           return response.json();
       })
       .then(data => {
-          if (typeof data === 'object' && 'status' in data && 'message' in data) {
-              // Kontrollerar att datat innehåller förväntade fält
-              if (data.status === "success") {
-                  alert(data.message);
-              } else {
-                  throw new Error(data.message || "Ett fel inträffade.");
-              }
+          if (data.status === "success") {
+              alert(data.message);
+              currentSession.setProp('isUserBooked', true);  // Uppdatera kalendern direkt
+              calendar.refetchEvents();  // Återladda evenemangen för att visa uppdateringar
           } else {
-              // Hanterar oväntat svarsformat
-              throw new Error("Unexpected response format");
+              throw new Error(data.message || "Ett fel inträffade.");
           }
       })
       .catch(error => {
-          // Hanterar både nätverksfel och fel från tidigare kastade undantag
           console.error('Error booking session:', error);
           alert(error.message);
       });
   }
 
 
+  function calculateEndTime(startTime, duration) {
+      // Antag att 'duration' är i minuter och 'startTime' är en sträng i ISO 8601-format
+      let start = new Date(startTime);
+      return new Date(start.getTime() + duration * 60000).toISOString(); // Lägg till 'duration' i minuter till starttiden
+  }
 
 
 
@@ -134,43 +136,56 @@
   },
 
     eventContent: function(arg) {
-      // Skapa en övergripande container
-      var eventElement = document.createElement('div');
-      eventElement.classList.add('fc-event-custom');
+        // Skapa en övergripande container
+        var eventElement = document.createElement('div');
+        eventElement.classList.add('fc-event-custom');
 
-      // Kontrollera om evenemanget är fullbokat
-      var isFull = arg.event.extendedProps.booked >= arg.event.extendedProps.maxCapacity;
-      eventElement.classList.add(isFull ? 'full' : 'available');
+        // Kontrollera om evenemanget är fullbokat
+        var isFull = arg.event.extendedProps.booked >= arg.event.extendedProps.maxCapacity;
+        // Kontrollera om användaren har bokat detta pass
+        var isUserBooked = arg.event.extendedProps.isUserBooked;
 
-      var titleElement = document.createElement('div');
-      titleElement.classList.add('fc-event-title');
-      titleElement.innerHTML = `<strong>${arg.event.title}</strong>`;
-      eventElement.appendChild(titleElement);
+        // Lägg till klasser baserat på bokningsstatus
+        eventElement.classList.add(isFull ? 'full' : 'available');
+        if (isUserBooked) {
+            eventElement.classList.add('user-booked');  // Denna klass kan ha en speciell stil i CSS
+        }
 
-      var idElement = document.createElement('div');
-      idElement.classList.add('fc-event-id');
-      idElement.textContent = `ID: ${arg.event.id}`;
-      eventElement.appendChild(idElement);
+        // Titel
+        var titleElement = document.createElement('div');
+        titleElement.classList.add('fc-event-title');
+        titleElement.innerHTML = `<strong>${arg.event.title}</strong>`;
+        eventElement.appendChild(titleElement);
 
-      var timeElement = document.createElement('div');
-      timeElement.classList.add('fc-event-time');
-      var startTime = FullCalendar.formatDate(arg.event.start, { hour: '2-digit', minute: '2-digit', hour12: false });
-      var endTime = FullCalendar.formatDate(arg.event.end, { hour: '2-digit', minute: '2-digit', hour12: false });
-      timeElement.textContent = `${startTime} - ${endTime}`;
-      eventElement.appendChild(timeElement);
+        // ID
+        var idElement = document.createElement('div');
+        idElement.classList.add('fc-event-id');
+        idElement.textContent = `ID: ${arg.event.id}`;
+        eventElement.appendChild(idElement);
 
-      var instructorElement = document.createElement('div');
-      instructorElement.classList.add('fc-event-instructor');
-      instructorElement.textContent = `Instruktör: ${arg.event.extendedProps.instructor}`;
-      eventElement.appendChild(instructorElement);
+        // Tid
+        var timeElement = document.createElement('div');
+        timeElement.classList.add('fc-event-time');
+        var startTime = FullCalendar.formatDate(arg.event.start, { hour: '2-digit', minute: '2-digit', hour12: false });
+        var endTime = FullCalendar.formatDate(arg.event.end, { hour: '2-digit', minute: '2-digit', hour12: false });
+        timeElement.textContent = `${startTime} - ${endTime}`;
+        eventElement.appendChild(timeElement);
 
-      var bookedElement = document.createElement('div');
-      bookedElement.classList.add('fc-event-booked');
-      bookedElement.textContent = `Lediga platser: ${arg.event.extendedProps.capacity}`;
-      eventElement.appendChild(bookedElement);
+        // Instruktör
+        var instructorElement = document.createElement('div');
+        instructorElement.classList.add('fc-event-instructor');
+        instructorElement.textContent = `Instruktör: ${arg.event.extendedProps.instructor}`;
+        eventElement.appendChild(instructorElement);
 
-      return { domNodes: [eventElement] };
+        // Bokade / Kapacitet
+        var bookedElement = document.createElement('div');
+        bookedElement.classList.add('fc-event-booked');
+        bookedElement.textContent = `Lediga platser: ${arg.event.extendedProps.capacity - arg.event.extendedProps.booked} / ${arg.event.extendedProps.capacity}`;
+        eventElement.appendChild(bookedElement);
+
+        return { domNodes: [eventElement] };
     }
+
 
   });
 

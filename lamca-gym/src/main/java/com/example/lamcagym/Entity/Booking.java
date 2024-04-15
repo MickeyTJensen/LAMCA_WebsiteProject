@@ -28,6 +28,7 @@ public class Booking {
     @Column(name = "booking_time")
     private Date bookingTime;
 
+
     public Booking(Integer userId, Integer sessionsId, Date bookingTime) {
         this.userId = userId;
         this.sessionsId = sessionsId;

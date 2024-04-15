@@ -123,17 +123,10 @@
   }
 
 
-  .full {
-    background-color: #930101 !important; /* Röd */
-  }
+.full { background-color: red; }
+.available { background-color: green; }
+.user-booked { background-color: blue; }
 
-  .available {
-    background-color: #019401 !important; /* Grön */
-  }
-
-  .booked {
-    background-color: #0000ff !important; /* Blå */
-  }
 
   .fc-event-title {
     font-size: 20px; /* Justera storleken */
