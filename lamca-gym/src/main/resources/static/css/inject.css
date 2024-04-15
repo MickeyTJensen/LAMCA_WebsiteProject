@@ -1,0 +1,58 @@
+/* inject.css är en fil för inställningar av chatbot'en från Botpress */
+/* I varje HTML-fil finns en <link rel="stylesheet" href="css/inject.css"> */
+
+.bp-widget-web {
+  border: none;
+  display: block;
+  position: bottom;
+  visibility: none;
+  z-index: 999999;
+  max-height: 100vh;
+  max-width: 100vw;
+  transition: none;
+  background: none transparent;
+  opacity: 1;
+  font-size: 16px;
+  letter-spacing: 0;
+  -webkit-font-smoothing: antialiased;
+  padding: 0;
+  color-scheme: none;
+}
+
+.bp-widget-widget {
+  top: auto;
+  left: auto;
+  bottom: 24px;
+  right: 36px;
+  width: 76px !important;
+  height: 76px !important;
+}
+
+.bp-widget-hidden {
+  display: none;
+}
+
+.bp-widget-convo {
+  top: auto;
+  left: auto;
+  bottom: 24px;
+  right: 36px;
+  width: 420px !important;
+  min-height: 382px !important;
+  max-height: 500px !important;
+}
+
+.bp-widget-side {
+  top: 85px;
+  left: auto;
+  bottom: 0px;
+  right: 0px;
+  width: 525px;
+  height: 85% !important;
+}
+
+@media only screen and (max-device-width: 768px) {
+  .bp-widget-side {
+    width: 100%;
+  }
+}

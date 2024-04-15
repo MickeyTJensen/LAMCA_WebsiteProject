@@ -14,7 +14,6 @@
     <!-- custom css file link  -->
 
     <link rel="stylesheet" href="css/template.css">
-
     <link rel="stylesheet" href="css/index.css">
 
 
@@ -174,15 +173,30 @@
         });
     });
 </script>
-<<<<<<< HEAD
 
     <script src="https://cdn.botpress.cloud/webchat/v1/inject.js"></script>
-    <script src="https://mediafiles.botpress.cloud/015530c3-be7c-4546-b954-f4d300002941/webchat/config.js" defer></script>
+    <script>
+        window.botpressWebChat.init({
+            "composerPlaceholder": "Chat with LAMCA-Gym",
+            "botConversationDescription": "Welcome to Lamca-Gym AI Chatbot!",
+            "botId": "015530c3-be7c-4546-b954-f4d300002941",
+            "hostUrl": "https://cdn.botpress.cloud/webchat/v1",
+            "messagingUrl": "https://messaging.botpress.cloud",
+            "clientId": "015530c3-be7c-4546-b954-f4d300002941",
+            "webhookId": "242d469e-11c0-43fc-986c-ea890821a8dd",
+            "lazySocket": true,
+            "themeName": "prism",
+            "botName": "LAMCA-Gym",
+            "stylesheet": "src/main/resources/static/css/template.css",
+            "frontendVersion": "v1",
+            "useSessionStorage": true,
+            "showBotInfoPage": true,
+            "theme": "prism",
+            "themeColor": "#2563eb"
+        });
+    </script>
 
-=======
-    <script src="https://cdn.botpress.cloud/webchat/v1/inject.js"></script>
-    <script src="https://mediafiles.botpress.cloud/015530c3-be7c-4546-b954-f4d300002941/webchat/config.js" defer></script>
->>>>>>> Master
+    <link rel="stylesheet" href="css/inject.css">
     
 </body>
 
