@@ -3,11 +3,11 @@
 .Trainers {
   justify-content: center;
   align-items: center;
-  padding: 100px 100px;
   color: white;
   text-align: center!important;
   font-size: xx-large;
   flex-wrap: wrap;
+  width: 100%;
 }
 .Trainers h4 {
   text-align: left!important;
@@ -57,60 +57,7 @@
 /* Trainers section ends here */
 
 
-/* Responsive */
 
-/* Medium Devices (Tablets): Adjust styles for screens between 768px and 1024px wide */
-@media only screen and (min-width: 768px) and (max-width: 1024px) {
-  .Trainers {
-    padding: 120px 100px;
-    max-width: 2500px;
-  }
-
-  .Trainers .row {
-    flex-direction: column;
-  }
-
-  .Trainers .column {
-   flex-direction: row!important;
-  }
-
-  .Trainers h4 {
-   margin-top: -30px;
-  }
-
-  .Trainers .info {
-    font-size: 18px;
-    line-height: 26px;
-    margin-top: 10px;
-    text-align: left;
-    color: #b1b2b3;
-  }
-
-  .Trainers .column img {
-    width: 100%!important;
-  }
-}
-
-/* Large Devices (Small Desktops/Laptops): Adjust styles for screens between 1025px and 1279px wide */
-@media only screen and (min-width: 1025px) and (max-width: 1279px) {
-  .Trainers {
-    padding: 100px 150px;
-  }
-}
-
-/* Extra Large Devices (Large Desktops): Adjust styles for screens between 1280px and 1920px wide */
-@media only screen and (min-width: 1280px) and (max-width: 1920px) {
-  .Trainers {
-     padding: 100px 200px;
-  }
-}
-
-/* Ultra Large Devices: Adjust styles for screens wider than 1921px */
-@media only screen and (min-width: 1921px) {
-  .Trainers {
-     padding: 100px 400px;
-  }
-}
 .active-link {
   color: #f09401; /* Exempel: Gör den aktiva fliken orange */
   background-color: #f09401;

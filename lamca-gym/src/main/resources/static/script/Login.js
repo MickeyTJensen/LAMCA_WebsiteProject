@@ -94,7 +94,7 @@ function loginUser(email, password) {
                 const data = await response.json();
                 alert(data.message || 'Registrering misslyckades, försök igen.');
             } else {
-                alert('Registrering lyckades! Du kan nu logga in.');
+                alert('Registrering lyckades!');
                 window.location.href = '/personalpage.html';
             }
         } catch (error) {
