@@ -1,25 +1,9 @@
 package com.example.lamcagym;
 
+import lombok.Data;
+
+@Data // Lombok-annotation för att generera getter, setter och toString automatiskt
 public class BookingRequest {
-
-    private int userId;
-
-    private int sessionId;
-
-
-    public int getUserId() {
-        return userId;
-    }
-
-    public void setUserId(int userId) {
-        this.userId = userId;
-    }
-
-    public int getSessionId() {
-        return sessionId;
-    }
-
-    public void setSessionId(int sessionId) {
-        this.sessionId = sessionId;
-    }
+    private int userId; // Användar-ID för bokningen
+    private int sessionId; // Session-ID för bokningen
 }

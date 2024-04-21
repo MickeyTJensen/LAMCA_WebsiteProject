@@ -1,37 +1,47 @@
 package com.example.lamcagym.Entity;
+// Importera nödvändiga bibliotek och moduler för databasinteraktion och validering
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Date;
+@Data // Lombok-annotering för att automatiskt generera getter, setter, toString, equals och hashCode metoder
+@Entity // Anger att denna klass är en entitetsklass som motsvarar en tabell i databasen
+@NoArgsConstructor // Lombok-annotering för att skapa en konstruktor utan argument
+@AllArgsConstructor // Lombok-annotering för att skapa en konstruktor som inkluderar alla fält
+@Table(name = "bookings") // Anger namnet på tabellen i databasen
 
-@Data
-@Entity
-@NoArgsConstructor
-@AllArgsConstructor
-@Table(name = "bookings")
 public class Booking {
+    @Id // Märker detta fält som primärnyckel
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // Anger att ID ska genereras automatiskt av databasen
+    @Column(name = "bookings_id") // Anger kolumnnamnet i databasen
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "bookings_id")
-    private Integer bookingId;
+    private Integer bookingId; // Unikt ID för varje bokningspost
+    @ManyToOne // Definierar en många-till-en-relation till User
+    @JoinColumn(name = "user_id") // Anger vilken kolumn som fungerar som främmande nyckel
+    @NotNull(message = "User must be specified") // Validering: en användare måste vara specificerad
 
-    @Column(name = "user_id")
-    private Integer userId;
+    private User user; // Användaren som gjort bokningen
+    @ManyToOne // Definierar en många-till-en-relation till Session
+    @JoinColumn(name = "sessions_id") // Anger vilken kolumn som fungerar som främmande nyckel
+    @NotNull(message = "Session must be specified") // Validering: en session måste vara specificerad
 
-    @Column(name = "sessions_id")
-    private Integer sessionsId;
+    private Session session; // Sessionen som är bokad
+    @Column(name = "booking_time") // Anger kolumnnamnet för bokningstiden
+    @NotNull(message = "Booking time cannot be null") // Validering: bokningstid får inte vara null
 
-    @Column(name = "booking_time")
-    private Date bookingTime;
+    private Date bookingTime; // Tiden då bokningen är gjord
 
-
-    public Booking(Integer userId, Integer sessionsId, Date bookingTime) {
-        this.userId = userId;
-        this.sessionsId = sessionsId;
+    // Konstruktor som tar alla nödvändiga attribut för att skapa en Booking
+    public Booking(User user, Session session, Date bookingTime) {
+        this.user = user;
+        this.session = session;
         this.bookingTime = bookingTime;
     }
 }
+
+
+

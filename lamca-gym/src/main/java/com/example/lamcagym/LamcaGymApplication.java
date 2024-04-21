@@ -1,27 +1,16 @@
 package com.example.lamcagym;
 
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.stereotype.Component;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
-import java.util.Arrays;
-import java.util.List;
-
+// Huvudklassen för Spring Boot-applikationen
 @SpringBootApplication
 public class LamcaGymApplication {
 
+	// Main-metoden som startar Spring Boot-applikationen
 	public static void main(String[] args) {
 
+		// Starta Spring-applikationen genom att köra SpringApplication.run() med den här klassen och eventuella argument
 		SpringApplication.run(LamcaGymApplication.class, args);
 	}
-
-
-
 }

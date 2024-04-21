@@ -224,6 +224,7 @@ h2 {
 
 .about-grid{
   text-align: center;
+  display: grid;
 }
 
 .footer a {
@@ -235,12 +236,6 @@ footer a:hover {
   color: #f09401!important;
 }
 
-@media (max-width: 1920px) {
-  .container {
-    transform: scale(0.75);
-    transform-origin: top left;
-  }
-}
 
 @media (max-width: 768px) {
   .header, .footer {

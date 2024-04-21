@@ -94,3 +94,12 @@ main {
   color: #f09401; /* Exempel: Gör den aktiva fliken orange */
   background-color: #f09401;
 }
+
+@media (max-width: 1920px){
+.info-box{
+    scale: 80%;
+    }
+    main{
+        margin-bottom: -40px;
+        }
+}

@@ -1,25 +1,39 @@
+<!-- Root-elementet för Logback-konfiguration -->
 <configuration>
+    <!-- STDOUT-appender som loggar till konsolen -->
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <!-- Encoder som specificerar hur loggmeddelanden formateras -->
         <encoder>
+            <!-- Loggformat som inkluderar datum, tråd-ID, loggnivå, klassnamn (max 36 tecken), och själva meddelandet -->
             <pattern>%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n</pattern>
         </encoder>
     </appender>
 
+    <!-- FILE-appender som loggar till fil med rullande loggfiler -->
     <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!-- Sökvägen till loggfilen -->
         <file>logs/myapp.log</file>
+        <!-- Encoder som specificerar hur loggmeddelanden formateras -->
         <encoder>
             <pattern>%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n</pattern>
         </encoder>
+        <!-- Rullande policy som skapar nya filer baserat på tid och filstorlek -->
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- Mönster för filnamn, inkluderar datum och en index-siffra i filnamnet -->
             <fileNamePattern>logs/archived/myapp.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <!-- Hur många dagar att behålla arkiverade loggfiler -->
             <maxHistory>30</maxHistory>
+            <!-- Trigger-policy som baseras på filstorlek och tid -->
             <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <!-- Maximal storlek på en loggfil innan den rullas över till en ny fil -->
                 <maxFileSize>10MB</maxFileSize>
             </timeBasedFileNamingAndTriggeringPolicy>
         </rollingPolicy>
     </appender>
 
+    <!-- Root-loggnivå satt till INFO, innebär att INFO och högre nivåer (WARN, ERROR) loggas -->
     <root level="INFO">
+        <!-- Referenser till de appenders som ska användas -->
         <appender-ref ref="STDOUT"/>
         <appender-ref ref="FILE"/>
     </root>

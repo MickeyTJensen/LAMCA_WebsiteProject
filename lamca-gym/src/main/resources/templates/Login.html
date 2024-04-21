@@ -68,7 +68,7 @@
             <div><button type="submit">Register</button></div>
             <p>Already a member? <span id="toggleToLogin" style="color: #f09401; cursor: pointer;">Log in</span></p>
         </form>
-    
+
         <!-- Login Form -->
         <form action ="login" method="POST" id="loginForm" style="display:none;">
             <div id="loginTitle">
@@ -82,5 +82,28 @@
         </form>
     </div>
     <script th:src="@{/script/Login.js}" defer></script>
+
+    <script src="https://cdn.botpress.cloud/webchat/v1/inject.js"></script>
+    <script>
+        window.botpressWebChat.init({
+            "composerPlaceholder": "Chat with LAMCA-Gym",
+            "botConversationDescription": "Welcome to Lamca-Gym AI Chatbot!",
+            "botId": "015530c3-be7c-4546-b954-f4d300002941",
+            "hostUrl": "https://cdn.botpress.cloud/webchat/v1",
+            "messagingUrl": "https://messaging.botpress.cloud",
+            "clientId": "015530c3-be7c-4546-b954-f4d300002941",
+            "webhookId": "242d469e-11c0-43fc-986c-ea890821a8dd",
+            "lazySocket": true,
+            "themeName": "prism",
+            "botName": "LAMCA-Gym",
+            "stylesheet": "src/main/resources/static/css/inject.css",
+            "frontendVersion": "v1",
+            "useSessionStorage": true,
+            "showBotInfoPage": true,
+            "theme": "prism",
+            "themeColor": "#2563eb"
+        });
+    </script>
+    <link rel="stylesheet" href="css/inject.css">
 </body>
 </html>

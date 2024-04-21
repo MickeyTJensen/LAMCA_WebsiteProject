@@ -1,37 +1,17 @@
 package com.example.lamcagym;
-public class ResponseObject {
-    private String status;
-    private String message;
-    private Object data;
 
+import lombok.Data;
+
+@Data // Lombok-annotation för att generera getter, setter och toString automatiskt
+public class ResponseObject {
+    private String status; // Status för svar (t.ex. "success" eller "error")
+    private String message; // Meddelande för svar (t.ex. en beskrivning av statusen)
+    private Object data; // Data för svar (kan vara vilken typ av objekt som helst)
+
+    // Konstruktor för att skapa ett ResponseObject med angiven status, meddelande och data
     public ResponseObject(String status, String message, Object data) {
         this.status = status;
         this.message = message;
-        this.data = data;
-    }
-
-    // Getters och setters för varje fält
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
-    public Object getData() {
-        return data;
-    }
-
-    public void setData(Object data) {
         this.data = data;
     }
 }

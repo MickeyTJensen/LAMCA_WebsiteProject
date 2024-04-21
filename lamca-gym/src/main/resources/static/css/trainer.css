@@ -58,6 +58,17 @@
 
 
 
+@media (max-width: 1920px) {
+  .container {
+    margin-top: 5%;
+    width: 80%;
+    margin-bottom: 5%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+
 .active-link {
   color: #f09401; /* Exempel: Gör den aktiva fliken orange */
   background-color: #f09401;

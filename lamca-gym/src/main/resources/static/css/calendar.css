@@ -123,9 +123,9 @@
   }
 
 
-.full { background-color: red; }
-.available { background-color: green; }
-.user-booked { background-color: blue; }
+ .full { background-color: red; }
+ .available { background-color: green; }
+ .userBooked { background-color: blue; }
 
 
   .fc-event-title {
@@ -145,3 +145,17 @@
   .fc-event-instructor, .fc-event-booked, .fc-event-time, .fc-event-id {
     font-size: 14px; /* Exempel på mindre textstorlek */
   }
+
+  /* Ytterligare anpassning för ännu mindre skärmar */
+    @media (max-width: 1920px) {
+      .modal {
+        width: 70%; /* Bredd på modalen för ännu mindre skärmar */
+        padding: 5px; /* Ännu mindre padding */
+      }
+
+      #calendar {
+      width: 60%;
+      height: 700px;
+      margin-top: 0px;
+      }
+    }

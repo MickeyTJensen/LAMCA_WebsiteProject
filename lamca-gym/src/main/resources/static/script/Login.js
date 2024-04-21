@@ -11,20 +11,12 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Hantera inloggning
-    document.getElementById('loginForm').addEventListener('submit', async function(event) {
+    document.getElementById('loginForm').addEventListener('submit', function(event) {
         event.preventDefault();
         const email = document.getElementById('loginEmail').value;
         const password = document.getElementById('loginPassword').value;
-        await loginUser(email, password);
+        loginUser(email, password);
     });
-})
-
-document.getElementById('loginForm').addEventListener('submit', function(event) {
-    event.preventDefault();
-    const email = document.getElementById('loginEmail').value;
-    const password = document.getElementById('loginPassword').value;
-
-    loginUser(email, password);
 });
 
 function loginUser(email, password) {
@@ -42,25 +34,25 @@ function loginUser(email, password) {
         return response.json();
     })
     .then(data => {
-    console.log(data);
-            localStorage.setItem('userToken', data.token);
-            console.log("Sätter userId i localStorage:", data.userId);
+        if (data.message === 'Successfully login') {
             localStorage.setItem('userId', data.userId);
             localStorage.setItem('userName', data.name);
-            alert('Login lyckades! Du kommer nu att omdirigeras.');
+            alert('Login successful! You will now be redirected.');
             window.location.href = "/personalpage.html";
-        })
-        .catch(error => {
-            console.error('Login error:', error);
-            const loginMessageElement = document.getElementById("loginMessage");
-            if (loginMessageElement) {
-                // Använder serverns felmeddelande om tillgängligt
-                loginMessageElement.innerText = error || "Invalid email or password";
-            } else {
-                console.error('Login message element not found');
-            }
-        });
-    }
+        } else {
+            throw new Error(data.message);
+        }
+    })
+    .catch(error => {
+        console.error('Login error:', error);
+        const loginMessageElement = document.getElementById("loginMessage");
+        if (loginMessageElement) {
+            loginMessageElement.innerText = error.message || "Invalid email or password";
+        } else {
+            console.error('Login message element not found');
+        }
+    });
+}
 
 
     // Hantera registrering
@@ -75,7 +67,7 @@ function loginUser(email, password) {
     });
 
     async function registerUser(name, email, phoneNumber, password) {
-        const registerUrl = 'http://localhost:8080/user/register'; // Säkerställ att detta är korrekt URL
+        const registerUrl = 'http://localhost:8080/user/register'; // Ensure this is the correct URL
         const registerData = {
             name,
             email,
@@ -90,16 +82,27 @@ function loginUser(email, password) {
                 body: JSON.stringify(registerData)
             });
 
+            const data = await response.json(); // Always parse the JSON to access the data object
+            //alert(data)
             if (!response.ok) {
-                const data = await response.json();
-                alert(data.message || 'Registrering misslyckades, försök igen.');
+                //alert(data.message || 'Registrering misslyckades, försök igen.');
+                alert(data)
             } else {
-                alert('Registrering lyckades!');
-                window.location.href = '/personalpage.html';
+                console.log("Registration successful, setting user details in localStorage:", data.userId);
+                localStorage.setItem('userToken', data.token);  // Assuming token is part of the response
+                localStorage.setItem('userId', data.userId);
+                localStorage.setItem('userName', data.name);
+                alert('Registration successful! You will now be redirected..');
+                redirectToLogin();
             }
         } catch (error) {
             console.error('Registration error:', error);
-            alert('Ett fel inträffade vid registrering.');
+            alert('An error occurred during registration.');
         }
+    }
+    function redirectToLogin() {
+           // Dirigera användaren till inloggningssidan
+           document.getElementById('signupForm').style.display = 'none';
+           document.getElementById('loginForm').style.display = 'block';
     }
 

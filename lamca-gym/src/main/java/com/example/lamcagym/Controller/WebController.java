@@ -9,66 +9,58 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
-@Controller
+@Controller // Indikerar att detta är en kontrollerkomponent för webbanvändargränssnittet
 public class WebController {
     @Autowired
-    UserService userService;
-    Login login = new Login();
+    UserService userService; // En autowired instans av UserService för att hantera användardata
+    Login login = new Login(); // En instans av Login för att hantera inloggningsuppgifter
+
+    // Request mapping för rotvägen ("/") som returnerar index-sidan
     @GetMapping("/")
     public String homePage(){
         return "index";
     }
+
+    // Request mapping för index-sidan som returnerar index-sidan
     @GetMapping("/index.html")
     public String indexPage(){
         return "index";
     }
+
+    // Request mapping för who-are-we sidan som returnerar who-are-we sidan
     @GetMapping("/who-are-we.html")
     public String whoAreWePage(){
         return "who-are-we";
     }
+
+    // Request mapping för ourgym sidan som returnerar ourgym sidan
     @GetMapping("/ourgym.html")
     public String ourgymPage(){
         return "ourgym";
     }
+
+    // Request mapping för membership sidan som returnerar membership sidan
     @GetMapping("/membership.html")
     public String membershipPage(){
         return "membership";
     }
+
+    // Request mapping för personalpage sidan som returnerar personalpage sidan
     @GetMapping("/personalpage.html")
     public String personalPage(){
         return "personalpage";
     }
+
+    // Request mapping för trainer sidan som returnerar trainer sidan
     @GetMapping("/trainer.html")
     public String trainerPage(){
         return "trainer";
     }
+
+    // Request mapping för login sidan som returnerar login sidan
     @GetMapping("/login.html")
     public String loginPage(){
         return "Login";
     }
-    @PostMapping("/login")
-    public String loginRequest(Model model, String email, String password){
-        User user = getUserByEmail(email);
-        if(user != null) {
-            System.out.println(user.getEmail() + " " + user.getPassword());
-            if(user.getPassword().equals(password)){
-                model.addAttribute("message","Successfully login " + user.getName());
-                //return "calender";
-                return"personalpage";
-            }
-            else {
-                model.addAttribute("message", "Invalid password");
-            }
-        } else {
-            model.addAttribute("message", "User not found");
-        }
-        return "Login";
-    }
-    private User getUserByEmail(String email){
-        User user = userService.getUserByEmail(email);
-        if (user != null) {
-            return user;
-        }
-        return null;
-    }
+
 }
